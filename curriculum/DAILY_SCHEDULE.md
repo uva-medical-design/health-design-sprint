@@ -28,11 +28,13 @@
 **Primary Tools (All Students)**
 | Tool | Purpose | Access |
 |------|---------|--------|
-| Claude Pro | AI partner for all phases | Individual accounts provided |
-| Claude Code | AI-assisted development | Via Claude Pro |
+| Claude (Team) | AI partner for all phases | Via Claude Team Standard plan (8 seats) |
+| Claude Code | AI-assisted development | Included with Team plan |
 | Replit | Collaborative coding environment | Free tier sufficient |
 | NotebookLM | Research synthesis, audio generation | Google account |
 | Gamma | Presentation creation | Free tier sufficient |
+
+> **Note:** UVA Education accounts do NOT include Claude Code access. We use Claude Team Standard plan to provide all students with Claude Code capabilities. See [Infrastructure Decision](../docs/infrastructure/claude-team-decision.md) for details.
 
 **On-Demand Tools (As Needed)**
 | Tool | Purpose | When Used |
@@ -42,7 +44,7 @@
 | Google AI Studio | Gemini access, multimodal experiments | Throughout |
 
 ### Student Prerequisites
-- Claude Pro account (provided)
+- Claude Team account (invitation sent pre-course; see [Setup Checklist](../resources/facilitator-setup-checklist.md))
 - Comfortable with prompting (basic prompt engineering)
 - No coding experience required
 - Curiosity about healthcare innovation

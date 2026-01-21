@@ -54,10 +54,12 @@ By the end of this elective, students will be able to:
 ```
 health-design-sprint/
 ├── curriculum/      # Daily schedules and facilitator guides
+├── docs/            # Documentation and decision records
+│   └── infrastructure/  # Tool and platform decisions
 ├── templates/       # Worksheets and frameworks for each phase
 ├── examples/        # Sample outputs and reference projects
 ├── projects/        # Student team project folders
-├── resources/       # Reading materials and tool guides
+├── resources/       # Reading materials, tool guides, setup checklists
 ├── CLAUDE.md        # AI assistant context file
 └── README.md        # This file
 ```
@@ -82,8 +84,10 @@ This course leverages AI tools to accelerate the prototyping process:
 
 - **Research synthesis**: AI-assisted interview analysis
 - **Ideation**: AI brainstorming partners
-- **Prototyping**: AI code generation and design tools
+- **Prototyping**: AI code generation and design tools (Claude Code)
 - **Documentation**: AI-assisted writing and presentation
+
+**Infrastructure:** Students access Claude and Claude Code via a shared Claude Team Standard plan. See [Infrastructure Decision](docs/infrastructure/claude-team-decision.md) for details.
 
 ## Contact
 
