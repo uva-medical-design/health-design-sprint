@@ -49,19 +49,41 @@ By the end of this elective, students will be able to:
 | 13. Final Refinement | Polish and document |
 | 14. Handoff | Present deliverables to stakeholders |
 
+## Documentation
+
+| Topic | Location | Description |
+|-------|----------|-------------|
+| **Course Philosophy** | [docs/course-philosophy.md](docs/course-philosophy.md) | "Six-Month Window" thesis and teaching rationale |
+| **Student Setup** | [docs/student-setup/](docs/student-setup/) | Mac/Windows installation guides |
+| **Infrastructure** | [docs/infrastructure/](docs/infrastructure/) | Claude Team, GitHub decisions |
+| **Session Plans** | [curriculum/sessions/](curriculum/sessions/) | Day 1 kickoff, Day 4 workshop |
+| **Voice Agent** | [voice-agent/](voice-agent/) | Daily check-in system for Vapi |
+| **Brand System** | [brand/](brand/) | `<mdp>` mark, typography, colors |
+
 ## Repository Structure
 
 ```
 health-design-sprint/
-├── curriculum/      # Daily schedules and facilitator guides
-├── docs/            # Documentation and decision records
-│   └── infrastructure/  # Tool and platform decisions
-├── templates/       # Worksheets and frameworks for each phase
-├── examples/        # Sample outputs and reference projects
-├── projects/        # Student team project folders
-├── resources/       # Reading materials, tool guides, setup checklists
-├── CLAUDE.md        # AI assistant context file
-└── README.md        # This file
+├── curriculum/           # Course content
+│   ├── sessions/         # Session plans (Day 1, Day 4)
+│   ├── templates/        # Design brief, PRD templates
+│   ├── COURSE_WORKFLOW.md
+│   └── DAILY_SCHEDULE.md
+├── docs/                 # Documentation
+│   ├── infrastructure/   # Tool and platform decisions
+│   ├── student-setup/    # Installation guides
+│   └── course-philosophy.md
+├── voice-agent/          # Vapi check-in system
+├── brand/                # Visual identity
+│   ├── assets/           # Logo files
+│   └── specs/            # Typography, color, moods
+├── students/             # Roster and student data
+├── templates/            # Phase worksheets
+├── examples/             # Sample outputs
+├── projects/             # Team project folders
+├── resources/            # Reading materials, checklists
+├── CLAUDE.md             # AI assistant context
+└── README.md             # This file
 ```
 
 ## Getting Started
