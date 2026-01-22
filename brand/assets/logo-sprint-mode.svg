@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 40" width="120" height="40">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@700&amp;display=swap');
+      .sprint-text {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 28px;
+        font-weight: 700;
+        fill: #1a1a1a;
+      }
+    </style>
+  </defs>
+  <text x="60" y="28" text-anchor="middle" class="sprint-text">&lt;&lt;&gt;&gt;</text>
+</svg>

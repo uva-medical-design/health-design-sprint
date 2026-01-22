@@ -59,16 +59,25 @@ Use 2-3 times total across entire course.
 
 ```
 brand/
-├── README.md          ← You are here
-├── BRIEF.md           ← Full design rationale
-├── assets/            ← Logo files (coming)
+├── README.md              ← You are here
+├── BRIEF.md               ← Full design rationale
+├── FIGMA-STRUCTURE.md     ← Complete Figma build guide
+├── assets/                ← Logo SVG files
 │   ├── logo-primary-dark.svg
 │   ├── logo-primary-light.svg
-│   └── logo-styled-brackets.svg
+│   ├── logo-bold-dark.svg
+│   ├── logo-bold-light.svg
+│   ├── favicon.svg
+│   ├── spark-character.svg
+│   └── logo-sprint-mode.svg
+├── tokens/                ← Design tokens
+│   ├── design-tokens.json    ← W3C format
+│   ├── figma-tokens.json     ← Tokens Studio format
+│   └── variables.css         ← CSS custom properties
 └── specs/
-    ├── typography.md  ← Font specifications
-    ├── color.md       ← Color palette
-    └── dynamic-brand.md ← Mood system
+    ├── typography.md      ← Font specifications
+    ├── color.md           ← Color palette
+    └── dynamic-brand.md   ← Mood system
 ```
 
 ---

@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@700&amp;display=swap');
+      .favicon-text {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 20px;
+        font-weight: 700;
+        fill: #1a1a1a;
+      }
+    </style>
+  </defs>
+  <text x="16" y="22" text-anchor="middle" class="favicon-text">&lt;&gt;</text>
+</svg>
