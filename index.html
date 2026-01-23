@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Health Design Sprint | UVA Medical Design Program</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --mono: 'JetBrains Mono', 'SF Mono', 'Fira Code', Consolas, monospace;
+      --sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --black: #1a1a1a;
+      --body: #333333;
+      --secondary: #666666;
+      --subtle: #999999;
+      --border: #e5e5e5;
+      --bg-subtle: #fafafa;
+      --bg: #ffffff;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: var(--sans);
+      color: var(--body);
+      line-height: 1.6;
+      background: var(--bg);
+    }
+    
+    /* Header */
+    header {
+      padding: 2rem 2rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+    
+    .logo {
+      font-family: var(--mono);
+      font-size: 1.5rem;
+      font-weight: 300;
+      color: var(--black);
+      letter-spacing: -0.5px;
+    }
+    
+    .logo-text {
+      font-family: var(--sans);
+      font-size: 0.875rem;
+      color: var(--secondary);
+      margin-left: 0.75rem;
+      font-weight: 400;
+    }
+    
+    /* Hero */
+    .hero {
+      padding: 4rem 2rem;
+      max-width: 720px;
+    }
+    
+    .badge {
+      display: inline-block;
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      font-weight: 400;
+      color: var(--secondary);
+      background: var(--bg-subtle);
+      padding: 0.375rem 0.75rem;
+      border-radius: 4px;
+      margin-bottom: 1.5rem;
+      letter-spacing: 0.025em;
+    }
+    
+    h1 {
+      font-size: 2.25rem;
+      font-weight: 600;
+      color: var(--black);
+      line-height: 1.2;
+      margin-bottom: 1rem;
+    }
+    
+    .subtitle {
+      font-size: 1.125rem;
+      color: var(--secondary);
+      margin-bottom: 2rem;
+    }
+    
+    .dates {
+      display: flex;
+      gap: 2rem;
+      padding: 1.5rem;
+      background: var(--bg-subtle);
+      border-radius: 8px;
+      margin-bottom: 2rem;
+    }
+    
+    .date-item label {
+      display: block;
+      font-size: 0.6875rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--subtle);
+      margin-bottom: 0.25rem;
+    }
+    
+    .date-item span {
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--black);
+    }
+    
+    /* Sections */
+    section {
+      padding: 3rem 2rem;
+      max-width: 720px;
+      border-top: 1px solid var(--border);
+    }
+    
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 1.25rem;
+    }
+    
+    .chevron {
+      font-family: var(--mono);
+      font-size: 1rem;
+      font-weight: 400;
+      color: var(--subtle);
+    }
+    
+    h2 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--black);
+    }
+    
+    p {
+      margin-bottom: 1rem;
+    }
+    
+    ul, ol {
+      margin-left: 1.25rem;
+      margin-bottom: 1rem;
+    }
+    
+    li {
+      margin-bottom: 0.5rem;
+    }
+    
+    li strong {
+      color: var(--black);
+    }
+    
+    /* Call Card */
+    .call-card {
+      background: var(--bg-subtle);
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin: 1.5rem 0;
+    }
+    
+    .call-card h3 {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--black);
+      margin-bottom: 1rem;
+    }
+    
+    .call-detail {
+      display: flex;
+      margin-bottom: 0.75rem;
+    }
+    
+    .call-detail:last-child {
+      margin-bottom: 0;
+    }
+    
+    .call-detail label {
+      width: 80px;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--subtle);
+      flex-shrink: 0;
+    }
+    
+    .call-detail span {
+      font-size: 0.9375rem;
+      color: var(--black);
+    }
+    
+    /* Footer */
+    footer {
+      padding: 2rem;
+      border-top: 1px solid var(--border);
+      background: var(--bg-subtle);
+    }
+    
+    .instructor {
+      margin-bottom: 1.5rem;
+    }
+    
+    .instructor-name {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--black);
+      margin-bottom: 0.25rem;
+    }
+    
+    .instructor-title {
+      font-size: 0.875rem;
+      color: var(--secondary);
+      line-height: 1.5;
+    }
+    
+    .tagline {
+      font-family: var(--mono);
+      font-size: 0.8125rem;
+      color: var(--subtle);
+      letter-spacing: 0.025em;
+    }
+    
+    /* Responsive */
+    @media (min-width: 768px) {
+      header, .hero, section, footer {
+        padding-left: 4rem;
+        padding-right: 4rem;
+      }
+      
+      h1 {
+        font-size: 2.75rem;
+      }
+      
+      .dates {
+        display: inline-flex;
+      }
+    }
+    
+    /* Link styles */
+    a {
+      color: var(--black);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+    
+    a:hover {
+      color: var(--secondary);
+    }
+  </style>
+</head>
+<body>
+  
+  <header>
+    <span class="logo">&lt;mdp&gt;</span>
+    <span class="logo-text">Medical Design Program</span>
+  </header>
+  
+  <div class="hero">
+    <span class="badge">&lt; Health Design Sprint &gt;</span>
+    <h1>Rapid Prototyping with AI</h1>
+    <p class="subtitle">A two-week intensive for 4th-year medical students. Go from challenge to working prototype using design thinking and generative AI.</p>
+    
+    <div class="dates">
+      <div class="date-item">
+        <label>Dates</label>
+        <span>February 16–27, 2026</span>
+      </div>
+      <div class="date-item">
+        <label>Format</label>
+        <span>Hybrid (UVA + INOVA)</span>
+      </div>
+    </div>
+  </div>
+  
+  <section>
+    <div class="section-header">
+      <span class="chevron">&lt;</span>
+      <h2>Pre-Course Call</h2>
+    </div>
+    
+    <p>Before we sprint, let's connect. Join a quick Zoom call to meet each other, preview what we'll build, and sort out logistics.</p>
+    
+    <div class="call-card">
+      <h3>Orientation Call</h3>
+      <div class="call-detail">
+        <label>When</label>
+        <span>Monday, January 26 · 5:00pm EST</span>
+      </div>
+      <div class="call-detail">
+        <label>Where</label>
+        <span>Zoom (link in calendar invite)</span>
+      </div>
+      <div class="call-detail">
+        <label>Duration</label>
+        <span>~30 minutes</span>
+      </div>
+    </div>
+  </section>
+  
+  <section>
+    <div class="section-header">
+      <span class="chevron">&gt;</span>
+      <h2>Before We Meet</h2>
+    </div>
+    
+    <p>Please reply to the calendar invite (or email me directly) with:</p>
+    
+    <ol>
+      <li><strong>Campus location</strong> — Will you be at UVA Charlottesville or INOVA during the course?</li>
+      <li><strong>Primary device</strong> — Mac, Windows, iPad, or Chromebook?</li>
+      <li><strong>A challenge</strong> — What's a healthcare problem you're curious about tackling?</li>
+    </ol>
+  </section>
+  
+  <section>
+    <div class="section-header">
+      <span class="chevron">&lt;&gt;</span>
+      <h2>What You'll Learn</h2>
+    </div>
+    
+    <p>Over two weeks, you'll move through the full design sprint cycle—twice. By the end, you'll have:</p>
+    
+    <ul>
+      <li>Conducted stakeholder interviews using AI-enhanced analysis</li>
+      <li>Built functional prototypes with no-code and AI platforms</li>
+      <li>Tested your concepts with real users</li>
+      <li>Presented to an expert panel</li>
+    </ul>
+    
+    <p>The goal isn't polished products—it's validated insights and the confidence to keep building.</p>
+  </section>
+  
+  <footer>
+    <div class="instructor">
+      <p class="instructor-name">Matt Trowbridge, MD, MPH</p>
+      <p class="instructor-title">
+        Director, UVA Medical Design Program<br>
+        Associate Professor, Emergency Medicine
+      </p>
+    </div>
+    <p class="tagline">&lt; diverge · converge · repeat &gt;</p>
+  </footer>
+  
+</body>
+</html>
