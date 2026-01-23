@@ -1,0 +1,62 @@
+{
+  "name": "Health Design Sprint",
+  "image": "mcr.microsoft.com/devcontainers/python:3.11",
+  "features": {
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "lts"
+    },
+    "ghcr.io/devcontainers/features/github-cli:1": {}
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "yzhang.markdown-all-in-one",
+        "bierner.markdown-preview-github-styles",
+        "esbenp.prettier-vscode",
+        "github.copilot",
+        "github.copilot-chat",
+        "ritwickdey.LiveServer",
+        "ms-toolsai.jupyter"
+      ],
+      "settings": {
+        "editor.wordWrap": "on",
+        "editor.fontSize": 14,
+        "editor.formatOnSave": true,
+        "python.defaultInterpreterPath": "/usr/local/bin/python",
+        "markdown.preview.fontSize": 14,
+        "workbench.startupEditor": "readme",
+        "files.autoSave": "afterDelay",
+        "files.autoSaveDelay": 1000,
+        "[python]": {
+          "editor.defaultFormatter": "ms-python.python"
+        },
+        "[javascript]": {
+          "editor.defaultFormatter": "esbenp.prettier-vscode"
+        },
+        "[html]": {
+          "editor.defaultFormatter": "esbenp.prettier-vscode"
+        }
+      }
+    }
+  },
+  "postCreateCommand": "pip install pandas matplotlib seaborn requests jupyter && npm install -g live-server",
+  "forwardPorts": [5500, 8000, 3000],
+  "portsAttributes": {
+    "5500": {
+      "label": "Live Server",
+      "onAutoForward": "notify"
+    },
+    "8000": {
+      "label": "Python Server",
+      "onAutoForward": "notify"
+    },
+    "3000": {
+      "label": "Node Server",
+      "onAutoForward": "notify"
+    }
+  },
+  "postStartCommand": "echo '🚀 Welcome to Health Design Sprint! Your environment is ready.'",
+  "remoteUser": "vscode"
+}
