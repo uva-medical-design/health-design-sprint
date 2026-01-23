@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Day 1 Afternoon: Design Thinking Workshop | Health Design Sprint</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --font-mono: 'JetBrains Mono', monospace;
+      --font-weight-light: 300;
+      --font-weight-regular: 400;
+      --font-weight-medium: 500;
+      --color-near-black: #1A1A1A;
+      --color-gray-700: #4A4A4A;
+      --color-gray-500: #6B6B6B;
+      --color-gray-300: #9CA3AF;
+      --color-gray-200: #D1D5DB;
+      --color-near-white: #F5F5F5;
+      --color-white: #FFFFFF;
+      --color-warm: #E07A5F;
+      --color-cool: #3D5A6C;
+      --color-energy: #E8A838;
+      --color-experimental: #7B68EE;
+      --bg-warm: #FAF7F2;
+      --bg-cool: #F0F4F8;
+      --bg-energy: #FFFBF5;
+      --transition-fast: 150ms ease;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: var(--font-mono); background: var(--color-near-black); overflow: hidden; }
+    .slides { width: 100vw; height: 100vh; position: relative; }
+    .slide {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      display: none; padding: 64px; background: var(--color-white);
+    }
+    .slide.active { display: flex; flex-direction: column; }
+
+    .slide--title {
+      background: var(--color-near-black); color: var(--color-white);
+      justify-content: center; align-items: center; text-align: center;
+      position: relative; overflow: hidden;
+    }
+    .slide--title::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+      background-image: url('../../assets/generated/day01-hero-design-thinking.png');
+      background-size: cover; background-position: center; opacity: 0.4;
+    }
+    .slide--title .content { position: relative; z-index: 1; }
+
+    .brand-lockup { margin-bottom: 48px; }
+    .brand-logo { font-size: 48px; font-weight: var(--font-weight-light); letter-spacing: 0.02em; margin-bottom: 12px; }
+    .brand-logo .bracket { color: var(--color-warm); }
+    .brand-name { font-size: 14px; font-weight: var(--font-weight-regular); text-transform: uppercase; letter-spacing: 0.15em; color: var(--color-gray-300); }
+    .slide--title h1 { font-size: 42px; font-weight: var(--font-weight-medium); line-height: 1.2; margin-bottom: 16px; }
+    .slide--title .subtitle { font-size: 20px; color: var(--color-gray-300); margin-bottom: 48px; }
+    .slide--title .meta { font-size: 14px; color: var(--color-warm); }
+
+    .slide--content { background: var(--bg-warm); }
+    .slide--cool { background: var(--bg-cool); }
+    .slide--energy { background: var(--bg-energy); }
+    .slide--dark { background: var(--color-near-black); color: var(--color-white); }
+
+    .slide h2 { font-size: 32px; font-weight: var(--font-weight-medium); margin-bottom: 48px; color: var(--color-near-black); }
+    .slide--dark h2 { color: var(--color-white); }
+    .slide h2 .bracket { color: var(--color-warm); }
+
+    .bullet-list {
+      list-style: none; flex: 1; display: flex; flex-direction: column;
+      justify-content: center; gap: 24px; max-width: 900px;
+    }
+    .bullet-list li {
+      font-size: 22px; font-weight: var(--font-weight-regular); line-height: 1.5;
+      padding-left: 40px; position: relative; color: var(--color-gray-700);
+    }
+    .bullet-list li::before { content: '>'; position: absolute; left: 0; color: var(--color-warm); font-weight: var(--font-weight-medium); }
+    .bullet-list li strong { color: var(--color-near-black); font-weight: var(--font-weight-medium); }
+    .slide--dark .bullet-list li { color: var(--color-gray-300); }
+    .slide--dark .bullet-list li strong { color: var(--color-white); }
+
+    /* Diverge/Converge Visual */
+    .diverge-converge {
+      flex: 1; display: flex; justify-content: center; align-items: center; gap: 64px;
+    }
+    .dc-symbol {
+      font-size: 120px; font-weight: var(--font-weight-light); color: var(--color-warm);
+    }
+    .dc-label {
+      text-align: center;
+    }
+    .dc-label h3 { font-size: 24px; font-weight: var(--font-weight-medium); margin-bottom: 12px; }
+    .dc-label p { font-size: 16px; color: var(--color-gray-500); max-width: 200px; }
+
+    /* Timeline */
+    .timeline {
+      flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 16px;
+    }
+    .timeline-item {
+      display: grid; grid-template-columns: 80px 1fr; gap: 24px; align-items: center;
+      padding: 16px; background: var(--color-white); border-radius: 8px;
+      border-left: 4px solid var(--color-warm);
+    }
+    .timeline-item.active { border-left-color: var(--color-energy); background: var(--bg-energy); }
+    .timeline-time { font-size: 14px; font-weight: var(--font-weight-medium); color: var(--color-gray-500); }
+    .timeline-content h4 { font-size: 16px; font-weight: var(--font-weight-medium); margin-bottom: 4px; }
+    .timeline-content p { font-size: 14px; color: var(--color-gray-500); }
+
+    /* Activity Callout */
+    .activity-callout {
+      background: var(--bg-energy); border-left: 4px solid var(--color-energy);
+      padding: 32px; border-radius: 8px; margin-top: 32px;
+    }
+    .activity-callout .label {
+      font-size: 12px; font-weight: var(--font-weight-medium); text-transform: uppercase;
+      letter-spacing: 0.05em; color: var(--color-energy); margin-bottom: 12px;
+    }
+    .activity-callout h3 { font-size: 24px; font-weight: var(--font-weight-medium); margin-bottom: 8px; }
+    .activity-callout p { font-size: 16px; color: var(--color-gray-700); }
+
+    /* Phase Grid */
+    .phase-grid {
+      flex: 1; display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; align-content: center;
+    }
+    .phase-card {
+      background: var(--color-white); border-radius: 8px; padding: 20px;
+      border-top: 3px solid var(--color-warm); text-align: center;
+    }
+    .phase-card.alt { border-top-color: var(--color-cool); }
+    .phase-number { font-size: 12px; color: var(--color-gray-300); margin-bottom: 8px; }
+    .phase-card h4 { font-size: 14px; font-weight: var(--font-weight-medium); margin-bottom: 8px; }
+    .phase-card p { font-size: 12px; color: var(--color-gray-500); }
+
+    /* Big Quote */
+    .big-quote { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; max-width: 800px; margin: 0 auto; }
+    .big-quote blockquote { font-size: 32px; font-weight: var(--font-weight-light); line-height: 1.4; margin-bottom: 24px; }
+    .big-quote cite { font-size: 16px; color: var(--color-gray-500); font-style: normal; }
+    .slide--dark .big-quote blockquote { color: var(--color-white); }
+    .slide--dark .big-quote cite { color: var(--color-gray-300); }
+
+    .slide-footer {
+      display: flex; justify-content: space-between; align-items: center;
+      padding-top: 24px; border-top: 1px solid var(--color-gray-200); margin-top: auto;
+    }
+    .slide--dark .slide-footer { border-top-color: var(--color-gray-700); }
+    .slide-footer .logo { font-size: 14px; color: var(--color-gray-500); }
+    .slide--dark .slide-footer .logo { color: var(--color-gray-300); }
+    .slide-footer .logo .bracket { color: var(--color-warm); }
+    .slide-footer .page { font-size: 14px; color: var(--color-gray-300); }
+
+    .nav-hint { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); font-size: 12px; color: var(--color-gray-500); z-index: 100; opacity: 0.6; }
+  </style>
+</head>
+<body>
+  <div class="slides">
+
+    <!-- Slide 1: Title -->
+    <!-- SPEAKER NOTES: Energize the room. This is hands-on time. They'll experience the full design sprint in 90 minutes. -->
+    <div class="slide slide--title active" data-slide="1">
+      <div class="content">
+        <div class="brand-lockup">
+          <div class="brand-logo"><span class="bracket">&lt;</span>mdp<span class="bracket">&gt;</span></div>
+          <div class="brand-name">Health Design Sprint</div>
+        </div>
+        <h1>Design Thinking Workshop</h1>
+        <p class="subtitle">Experience the Full Journey in 90 Minutes</p>
+        <p class="meta">Day 1 Afternoon | February 16, 2026</p>
+      </div>
+    </div>
+
+    <!-- Slide 2: Session Theme -->
+    <!-- SPEAKER NOTES: Set expectations - this is a speedrun. The goal is to experience the rhythm, not produce perfect work. -->
+    <div class="slide slide--content" data-slide="2">
+      <h2><span class="bracket">&lt;</span> Today's Theme <span class="bracket">&gt;</span></h2>
+      <div class="big-quote">
+        <blockquote>"Experience the entire journey in 90 minutes so you know where you're going."</blockquote>
+        <cite>Learning by doing, not by listening</cite>
+      </div>
+      <div class="slide-footer">
+        <span class="logo"><span class="bracket">&lt;</span>mdp<span class="bracket">&gt;</span> Health Design Sprint</span>
+        <span class="page">2 / 12</span>
+      </div>
+    </div>
+
+    <!-- Slide 3: Diverge/Converge -->
+    <!-- SPEAKER NOTES: Core concept of design thinking. Open wide, then narrow down. This rhythm repeats throughout the sprint. -->
+    <div class="slide slide--cool" data-slide="3">
+      <h2><span class="bracket">&lt;</span> The Design Thinking Rhythm <span class="bracket">&gt;</span></h2>
+      <div class="diverge-converge">
+        <div class="dc-label">
+          <div class="dc-symbol">&lt;</div>
+          <h3>Diverge</h3>
+          <p>Open, explore, expand possibilities</p>
+        </div>
+        <div class="dc-label">
+          <div class="dc-symbol">&gt;</div>
+          <h3>Converge</h3>
+          <p>Focus, decide, narrow down</p>
+        </div>
+        <div class="dc-label">
+          <div class="dc-symbol">&lt;&gt;</div>
+          <h3>Transform</h3>
+          <p>Complete cycle, then iterate</p>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span class="logo"><span class="bracket">&lt;</span>mdp<span class="bracket">&gt;</span> Health Design Sprint</span>
+        <span class="page">3 / 12</span>
+      </div>
+    </div>
+
+    <!-- Slide 4: 14 Phases Overview -->
+    <!-- SPEAKER NOTES: Quick overview of all phases. Don't dwell - they'll experience this. Point out Week 1 vs Week 2 distinction. -->
+    <div class="slide slide--content" data-slide="4">
+      <h2><span class="bracket">&lt;</span> The 14 Phases at a Glance <span class="bracket">&gt;</span></h2>
+      <div class="phase-grid">
+        <div class="phase-card"><div class="phase-number">01</div><h4>Problem Exploration</h4><p>Identify challenges</p></div>
+        <div class="phase-card"><div class="phase-number">02</div><h4>User Identification</h4><p>Map stakeholders</p></div>
+        <div class="phase-card"><div class="phase-number">03</div><h4>User Research</h4><p>Conduct interviews</p></div>
+        <div class="phase-card"><div class="phase-number">04</div><h4>Empathy Synthesis</h4><p>Create personas</p></div>
+        <div class="phase-card"><div class="phase-number">05</div><h4>Problem Definition</h4><p>HMW statements</p></div>
+        <div class="phase-card"><div class="phase-number">06</div><h4>Ideation</h4><p>Generate concepts</p></div>
+        <div class="phase-card"><div class="phase-number">07</div><h4>Concept Selection</h4><p>Evaluate & choose</p></div>
+        <div class="phase-card alt"><div class="phase-number">08</div><h4>Lo-Fi Prototype</h4><p>Quick mockups</p></div>
+        <div class="phase-card alt"><div class="phase-number">09</div><h4>User Testing 1</h4><p>Initial feedback</p></div>
+        <div class="phase-card alt"><div class="phase-number">10</div><h4>Iteration</h4><p>Refine design</p></div>
+        <div class="phase-card alt"><div class="phase-number">11</div><h4>Hi-Fi Prototype</h4><p>Build with AI</p></div>
+        <div class="phase-card alt"><div class="phase-number">12</div><h4>User Testing 2</h4><p>Validate solution</p></div>
+        <div class="phase-card alt"><div class="phase-number">13</div><h4>Final Polish</h4><p>Document & refine</p></div>
+        <div class="phase-card alt"><div class="phase-number">14</div><h4>Handoff</h4><p>Present & deliver</p></div>
+      </div>
+      <div class="slide-footer">
+        <span class="logo"><span class="bracket">&lt;</span>mdp<span class="bracket">&gt;</span> Health Design Sprint</span>
+        <span class="page">4 / 12</span>
+      </div>
+    </div>
+
+    <!-- Slide 5: Speedrun Introduction -->
+    <!-- SPEAKER NOTES: Introduce the toy problem. Everyone works on the same thing so we can compare approaches. -->
+    <div class="slide slide--energy" data-slide="5">
+      <h2><span class="bracket">&lt;</span> Design Sprint Speedrun <span class="bracket">&gt;</span></h2>
+      <div class="activity-callout">
+        <div class="label">> Activity</div>
+        <h3>Toy Problem: Redesign the Patient Check-In Experience</h3>
+        <p>90 minutes. 8 phases. Experience the full design thinking journey with a focused healthcare challenge.</p>
+      </div>
+      <ul class="bullet-list" style="margin-top: 32px;">
+        <li><strong>Why this problem?</strong> Universal, relatable, bounded complexity</li>
+        <li><strong>Your goal:</strong> Experience the rhythm, not produce perfection</li>
+        <li><strong>AI partner:</strong> Use Claude to accelerate each phase</li>
+      </ul>
+      <div class="slide-footer">
+        <span class="logo"><span class="bracket">&lt;</span>mdp<span class="bracket">&gt;</span> Health Design Sprint</span>
+        <span class="page">5 / 12</span>
+      </div>
+    </div>
+
+    <!-- Slide 6: Speedrun Timeline -->
+    <!-- SPEAKER NOTES: Walk through the timeline. Emphasize tight time boxes. This teaches the value of constraints. -->
+    <div class="slide slide--content" data-slide="6">
+      <h2><span class="bracket">&lt;</span> Speedrun Timeline <span class="bracket">&gt;</span></h2>
+      <div class="timeline">
+        <div class="timeline-item"><span class="timeline-time">10 min</span><div class="timeline-content"><h4>Problem Exploration</h4><p>Observe/recall check-in pain points</p></div></div>
+        <div class="timeline-item"><span class="timeline-time">10 min</span><div class="timeline-content"><h4>User Identification</h4><p>Create stakeholder map</p></div></div>
+        <div class="timeline-item"><span class="timeline-time">15 min</span><div class="timeline-content"><h4>Quick User Insight</h4><p>Role-play interviews in pairs</p></div></div>
+        <div class="timeline-item"><span class="timeline-time">10 min</span><div class="timeline-content"><h4>Insight Synthesis</h4><p>Use Claude to find patterns</p></div></div>
+        <div class="timeline-item"><span class="timeline-time">10 min</span><div class="timeline-content"><h4>Design Brief</h4><p>Write HMW statement</p></div></div>
+        <div class="timeline-item"><span class="timeline-time">15 min</span><div class="timeline-content"><h4>Ideation</h4><p>Brainstorm with Claude partner</p></div></div>
+        <div class="timeline-item"><span class="timeline-time">10 min</span><div class="timeline-content"><h4>Concept Selection</h4><p>Evaluate and choose</p></div></div>
+        <div class="timeline-item"><span class="timeline-time">10 min</span><div class="timeline-content"><h4>Paper Prototype</h4><p>Sketch your concept</p></div></div>
+      </div>
+      <div class="slide-footer">
+        <span class="logo"><span class="bracket">&lt;</span>mdp<span class="bracket">&gt;</span> Health Design Sprint</span>
+        <span class="page">6 / 12</span>
+      </div>
+    </div>
+
+    <!-- Slide 7: Phase 1-2 Instructions -->
+    <!-- SPEAKER NOTES: Get them started. Problem exploration is about remembering friction, not analyzing deeply. -->
+    <div class="slide slide--cool" data-slide="7">
+      <h2><span class="bracket">&lt;</span> Phases 1-2: Explore & Map <span class="bracket">&gt;</span></h2>
+      <ul class="bullet-list">
+        <li><strong>Problem Exploration (10 min):</strong> What frustrates YOU about check-in?</li>
+        <li>List every pain point you can remember from any healthcare visit</li>
+        <li><strong>User Identification (10 min):</strong> Who else is affected?</li>
+        <li>Map all stakeholders: patients, families, front desk, nurses, IT, billing...</li>
+        <li><strong>Claude prompt:</strong> "Who are all the stakeholders affected by patient check-in? Include non-obvious ones."</li>
+      </ul>
+      <div class="slide-footer">
+        <span class="logo"><span class="bracket">&lt;</span>mdp<span class="bracket">&gt;</span> Health Design Sprint</span>
+        <span class="page">7 / 12</span>
+      </div>
+    </div>
+
+    <!-- Slide 8: Phase 3-4 Instructions -->
+    <!-- SPEAKER NOTES: Role-play interviews are quick and dirty. The goal is empathy, not accuracy. -->
+    <div class="slide slide--content" data-slide="8">
+      <h2><span class="bracket">&lt;</span> Phases 3-4: Research & Synthesize <span class="bracket">&gt;</span></h2>
+      <ul class="bullet-list">
+        <li><strong>Quick User Insight (15 min):</strong> Pair up, one interviewer, one "user"</li>
+        <li>Role-play: "Tell me about a recent frustrating check-in experience"</li>
+        <li>Swap roles halfway. Capture key quotes.</li>
+        <li><strong>Insight Synthesis (10 min):</strong> Use Claude to find patterns</li>
+        <li><strong>Claude prompt:</strong> "Here are quotes from our interviews: [paste]. What patterns do you see?"</li>
+      </ul>
+      <div class="slide-footer">
+        <span class="logo"><span class="bracket">&lt;</span>mdp<span class="bracket">&gt;</span> Health Design Sprint</span>
+        <span class="page">8 / 12</span>
+      </div>
+    </div>
+
+    <!-- Slide 9: Phase 5-6 Instructions -->
+    <!-- SPEAKER NOTES: HMW is the pivot point. A good HMW opens possibilities. A bad one constrains too early. -->
+    <div class="slide slide--cool" data-slide="9">
+      <h2><span class="bracket">&lt;</span> Phases 5-6: Define & Ideate <span class="bracket">&gt;</span></h2>
+      <ul class="bullet-list">
+        <li><strong>Design Brief (10 min):</strong> Write a "How Might We" statement</li>
+        <li>Format: "How might we [verb] [user] [goal/need]?"</li>
+        <li>Example: "HMW reduce anxiety for patients during check-in?"</li>
+        <li><strong>Ideation (15 min):</strong> Generate 20+ ideas with Claude</li>
+        <li><strong>Claude prompt:</strong> "Give me 20 diverse solutions for: [HMW]. Include wild ideas."</li>
+      </ul>
+      <div class="slide-footer">
+        <span class="logo"><span class="bracket">&lt;</span>mdp<span class="bracket">&gt;</span> Health Design Sprint</span>
+        <span class="page">9 / 12</span>
+      </div>
+    </div>
+
+    <!-- Slide 10: Phase 7-8 Instructions -->
+    <!-- SPEAKER NOTES: Selection is about learning potential, not certainty. Paper prototypes should be rough. -->
+    <div class="slide slide--content" data-slide="10">
+      <h2><span class="bracket">&lt;</span> Phases 7-8: Select & Prototype <span class="bracket">&gt;</span></h2>
+      <ul class="bullet-list">
+        <li><strong>Concept Selection (10 min):</strong> Pick the idea with most learning potential</li>
+        <li>Not "best" idea — the one that teaches you the most when tested</li>
+        <li><strong>Paper Prototype (10 min):</strong> Sketch your concept</li>
+        <li>Show the core interaction. Labels and arrows welcome. Ugly is fine.</li>
+        <li><strong>If you're not embarrassed, you waited too long.</strong></li>
+      </ul>
+      <div class="slide-footer">
+        <span class="logo"><span class="bracket">&lt;</span>mdp<span class="bracket">&gt;</span> Health Design Sprint</span>
+        <span class="page">10 / 12</span>
+      </div>
+    </div>
+
+    <!-- Slide 11: Shareout -->
+    <!-- SPEAKER NOTES: Each team gets 3 minutes. Focus on process observations, not judging concepts. -->
+    <div class="slide slide--energy" data-slide="11">
+      <h2><span class="bracket">&lt;</span> Speedrun Shareout <span class="bracket">&gt;</span></h2>
+      <div class="activity-callout">
+        <div class="label">> Activity</div>
+        <h3>3-Minute Concept Pitch</h3>
+        <p>Share your HMW statement, selected concept, and paper prototype. Focus on what you learned, not what you built.</p>
+      </div>
+      <ul class="bullet-list" style="margin-top: 32px;">
+        <li><strong>What was your insight?</strong> What did you learn from interviews?</li>
+        <li><strong>What's your HMW?</strong> How did you frame the opportunity?</li>
+        <li><strong>What's your concept?</strong> Show the sketch, explain the core idea</li>
+      </ul>
+      <div class="slide-footer">
+        <span class="logo"><span class="bracket">&lt;</span>mdp<span class="bracket">&gt;</span> Health Design Sprint</span>
+        <span class="page">11 / 12</span>
+      </div>
+    </div>
+
+    <!-- Slide 12: Reflection -->
+    <!-- SPEAKER NOTES: End with reflection. The speedrun is a microcosm of the full sprint. What surprised them? -->
+    <div class="slide slide--dark" data-slide="12">
+      <h2><span class="bracket">&lt;</span> Reflection <span class="bracket">&gt;</span></h2>
+      <div class="big-quote">
+        <blockquote>"What surprised you about the speedrun?"</blockquote>
+        <cite>Submit your reflection by 5:00 PM</cite>
+      </div>
+      <div class="slide-footer">
+        <span class="logo"><span class="bracket">&lt;</span>mdp<span class="bracket">&gt;</span> Health Design Sprint</span>
+        <span class="page">12 / 12</span>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="nav-hint">Use arrow keys to navigate</div>
+
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    let currentSlide = 0;
+    function showSlide(index) {
+      slides.forEach((slide, i) => slide.classList.toggle('active', i === index));
+      currentSlide = index;
+    }
+    function nextSlide() { if (currentSlide < slides.length - 1) showSlide(currentSlide + 1); }
+    function prevSlide() { if (currentSlide > 0) showSlide(currentSlide - 1); }
+    document.addEventListener('keydown', (e) => {
+      switch(e.key) {
+        case 'ArrowRight': case 'ArrowDown': case ' ': case 'PageDown': e.preventDefault(); nextSlide(); break;
+        case 'ArrowLeft': case 'ArrowUp': case 'PageUp': e.preventDefault(); prevSlide(); break;
+        case 'Home': e.preventDefault(); showSlide(0); break;
+        case 'End': e.preventDefault(); showSlide(slides.length - 1); break;
+      }
+    });
+    document.addEventListener('click', (e) => {
+      const x = e.clientX, width = window.innerWidth;
+      if (x > width * 0.7) nextSlide();
+      else if (x < width * 0.3) prevSlide();
+    });
+    showSlide(0);
+  </script>
+</body>
+</html>

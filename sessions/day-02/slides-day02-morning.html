@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Day 2 Morning: User Research with AI | Health Design Sprint</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --font-mono: 'JetBrains Mono', monospace;
+      --font-weight-light: 300;
+      --font-weight-regular: 400;
+      --font-weight-medium: 500;
+      --color-near-black: #1A1A1A;
+      --color-gray-700: #4A4A4A;
+      --color-gray-500: #6B6B6B;
+      --color-gray-300: #9CA3AF;
+      --color-gray-200: #D1D5DB;
+      --color-near-white: #F5F5F5;
+      --color-white: #FFFFFF;
+      --color-warm: #E07A5F;
+      --color-cool: #3D5A6C;
+      --color-energy: #E8A838;
+      --color-experimental: #7B68EE;
+      --bg-warm: #FAF7F2;
+      --bg-cool: #F0F4F8;
+      --bg-energy: #FFFBF5;
+      --transition-fast: 150ms ease;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: var(--font-mono); background: var(--color-near-black); overflow: hidden; }
+    .slides { width: 100vw; height: 100vh; position: relative; }
+    .slide {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      display: none; padding: 64px; background: var(--color-white);
+    }
+    .slide.active { display: flex; flex-direction: column; }
+
+    .slide--title {
+      background: var(--color-near-black); color: var(--color-white);
+      justify-content: center; align-items: center; text-align: center;
+      position: relative; overflow: hidden;
+    }
+    .slide--title::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+      background-image: url('../../assets/generated/day02-hero-user-research.png');
+      background-size: cover; background-position: center; opacity: 0.4;
+    }
+    .slide--title .content { position: relative; z-index: 1; }
+
+    .brand-lockup { margin-bottom: 48px; }
+    .brand-logo { font-size: 48px; font-weight: var(--font-weight-light); letter-spacing: 0.02em; margin-bottom: 12px; }
+    .brand-logo .bracket { color: var(--color-warm); }
+    .brand-name { font-size: 14px; text-transform: uppercase; letter-spacing: 0.15em; color: var(--color-gray-300); }
+    .slide--title h1 { font-size: 42px; font-weight: var(--font-weight-medium); line-height: 1.2; margin-bottom: 16px; }
+    .slide--title .subtitle { font-size: 20px; color: var(--color-gray-300); margin-bottom: 48px; }
+    .slide--title .meta { font-size: 14px; color: var(--color-warm); }
+
+    .slide--content { background: var(--bg-warm); }
+    .slide--cool { background: var(--bg-cool); }
+    .slide--energy { background: var(--bg-energy); }
+    .slide--dark { background: var(--color-near-black); color: var(--color-white); }
+
+    .slide h2 { font-size: 32px; font-weight: var(--font-weight-medium); margin-bottom: 48px; color: var(--color-near-black); }
+    .slide--dark h2 { color: var(--color-white); }
+    .slide h2 .bracket { color: var(--color-warm); }
+
+    .bullet-list {
+      list-style: none; flex: 1; display: flex; flex-direction: column;
+      justify-content: center; gap: 24px; max-width: 900px;
+    }
+    .bullet-list li {
+      font-size: 22px; line-height: 1.5; padding-left: 40px; position: relative; color: var(--color-gray-700);
+    }
+    .bullet-list li::before { content: '>'; position: absolute; left: 0; color: var(--color-warm); font-weight: var(--font-weight-medium); }
+    .bullet-list li strong { color: var(--color-near-black); font-weight: var(--font-weight-medium); }
+    .slide--dark .bullet-list li { color: var(--color-gray-300); }
+    .slide--dark .bullet-list li strong { color: var(--color-white); }
+
+    /* Two Column */
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; flex: 1; align-content: center; }
+    .col h3 { font-size: 20px; font-weight: var(--font-weight-medium); margin-bottom: 24px; color: var(--color-warm); }
+    .col p, .col li { font-size: 18px; line-height: 1.6; color: var(--color-gray-700); }
+    .col ul { list-style: none; }
+    .col ul li { padding-left: 24px; position: relative; margin-bottom: 12px; }
+    .col ul li::before { content: '>'; position: absolute; left: 0; color: var(--color-warm); }
+
+    /* Big Quote */
+    .big-quote { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; max-width: 800px; margin: 0 auto; }
+    .big-quote blockquote { font-size: 32px; font-weight: var(--font-weight-light); line-height: 1.4; margin-bottom: 24px; }
+    .big-quote cite { font-size: 16px; color: var(--color-gray-500); font-style: normal; }
+    .slide--dark .big-quote blockquote { color: var(--color-white); }
+    .slide--dark .big-quote cite { color: var(--color-gray-300); }
+
+    /* Iceberg Diagram */
+    .iceberg { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 8px; }
+    .iceberg-level {
+      display: flex; align-items: center; justify-content: center; text-align: center;
+      padding: 16px 32px; border-radius: 8px; font-size: 16px;
+    }
+    .iceberg-level.visible { background: var(--color-warm); color: var(--color-white); width: 300px; }
+    .iceberg-level.patterns { background: rgba(61, 90, 108, 0.3); width: 400px; }
+    .iceberg-level.structures { background: rgba(61, 90, 108, 0.5); width: 500px; }
+    .iceberg-level.mental { background: var(--color-cool); color: var(--color-white); width: 600px; }
+    .iceberg-divider { font-size: 12px; color: var(--color-gray-300); margin: 8px 0; }
+
+    /* Stakeholder Map Visual */
+    .stakeholder-visual { flex: 1; display: flex; justify-content: center; align-items: center; }
+    .stakeholder-rings { position: relative; width: 500px; height: 400px; }
+    .ring {
+      position: absolute; border-radius: 50%; border: 2px dashed;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .ring--primary { width: 150px; height: 150px; top: 50%; left: 50%; transform: translate(-50%, -50%); border-color: var(--color-warm); background: rgba(224, 122, 95, 0.1); }
+    .ring--secondary { width: 300px; height: 300px; top: 50%; left: 50%; transform: translate(-50%, -50%); border-color: var(--color-cool); }
+    .ring--tertiary { width: 450px; height: 350px; top: 50%; left: 50%; transform: translate(-50%, -50%); border-color: var(--color-gray-300); }
+    .ring-label { font-size: 12px; color: var(--color-gray-500); position: absolute; }
+    .ring-label.primary { top: 50%; left: 50%; transform: translate(-50%, -50%); color: var(--color-warm); font-weight: var(--font-weight-medium); }
+    .ring-label.secondary { bottom: 60px; right: 80px; }
+    .ring-label.tertiary { bottom: 20px; right: 20px; }
+
+    /* Claude Prompt Box */
+    .claude-prompt {
+      background: var(--color-near-black); border-radius: 8px; padding: 24px; margin-top: 24px;
+    }
+    .claude-prompt .label {
+      font-size: 12px; color: var(--color-experimental); margin-bottom: 12px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .claude-prompt .label::before { content: '<•>'; color: var(--color-experimental); }
+    .claude-prompt code {
+      font-size: 14px; color: var(--color-near-white); line-height: 1.6; display: block;
+    }
+
+    /* Callout */
+    .callout-tip {
+      background: var(--bg-cool); border-left: 4px solid var(--color-cool);
+      padding: 24px; border-radius: 8px; margin-top: 24px;
+    }
+    .callout-tip .label {
+      font-size: 12px; font-weight: var(--font-weight-medium); text-transform: uppercase;
+      letter-spacing: 0.05em; color: var(--color-cool); margin-bottom: 8px;
+    }
+    .callout-tip p { font-size: 16px; color: var(--color-gray-700); }
+
+    .callout-discuss {
+      background: var(--bg-energy); border-left: 4px solid var(--color-energy);
+      padding: 24px; border-radius: 8px; margin-top: 24px;
+    }
+    .callout-discuss .label {
+      font-size: 12px; font-weight: var(--font-weight-medium); text-transform: uppercase;
+      letter-spacing: 0.05em; color: var(--color-energy); margin-bottom: 8px;
+    }
+    .callout-discuss p { font-size: 18px; color: var(--color-gray-700); font-style: italic; }
+
+    .slide-footer {
+      display: flex; justify-content: space-between; align-items: center;
+      padding-top: 24px; border-top: 1px solid var(--color-gray-200); margin-top: auto;
+    }
+    .slide--dark .slide-footer { border-top-color: var(--color-gray-700); }
+    .slide-footer .logo { font-size: 14px; color: var(--color-gray-500); }
+    .slide--dark .slide-footer .logo { color: var(--color-gray-300); }
+    .slide-footer .logo .bracket { color: var(--color-warm); }
+    .slide-footer .page { font-size: 14px; color: var(--color-gray-300); }
+
+    .nav-hint { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); font-size: 12px; color: var(--color-gray-500); z-index: 100; opacity: 0.6; }
+  </style>
+</head>
+<body>
+  <div class="slides">
+
+    <!-- Slide 1: Title -->
+    <!-- SPEAKER NOTES: Day 2 focuses on understanding before solving. User research is the foundation of human-centered design. -->
+    <div class="slide slide--title active" data-slide="1">
+      <div class="content">
+        <div class="brand-lockup">
+          <div class="brand-logo"><span class="bracket">&lt;</span>mdp<span class="bracket">&gt;</span></div>
+          <div class="brand-name">Health Design Sprint</div>
+        </div>
+        <h1>User Research with AI</h1>
+        <p class="subtitle">Seeing Systems & Identifying Users</p>
+        <p class="meta">Day 2 Morning | February 17, 2026</p>
+      </div>
+    </div>
+
+    <!-- Slide 2: Theme -->
+    <!-- SPEAKER NOTES: Set the mindset. Research isn't about confirming what we think - it's about discovering what we don't know. -->
+    <div class="slide slide--content" data-slide="2">
+      <h2><span class="bracket">&lt;</span> Today's Theme <span class="bracket">&gt;</span></h2>
+      <div class="big-quote">
+        <blockquote>"Before you can solve a problem, you have to see it clearly and know who lives with it."</blockquote>
+        <cite>Suspend assumptions—observe first</cite>
+      </div>
+      <div class="slide-footer">
+        <span class="logo"><span class="bracket">&lt;</span>mdp<span class="bracket">&gt;</span> Health Design Sprint</span>
+        <span class="page">2 / 11</span>
+      </div>
+    </div>
+
+    <!-- Slide 3: Learning Objectives -->
+    <!-- SPEAKER NOTES: Three domains again. Knowledge, skills, mindset. This is what they should be able to do by end of day. -->
+    <div class="slide slide--cool" data-slide="3">
+      <h2><span class="bracket">&lt;</span> Learning Objectives <span class="bracket">&gt;</span></h2>
+      <div class="two-col">
+        <div class="col">
+          <h3>Knowledge</h3>
+          <ul>
+            <li>Systems thinking in healthcare</li>
+            <li>Symptoms vs. root causes</li>
+            <li>Primary, secondary, tertiary users</li>
+          </ul>
+        </div>
+        <div class="col">
+          <h3>Skills</h3>
+          <ul>
+            <li>Create stakeholder maps</li>
+            <li>Use AI to research rapidly</li>
+            <li>Document observations systematically</li>
+          </ul>
+        </div>
+      </div>
+      <div class="callout-tip">
+        <div class="label">* Mindset</div>
+        <p>Every stakeholder's perspective has value. Curiosity over certainty.</p>
+      </div>
+      <div class="slide-footer">
+        <span class="logo"><span class="bracket">&lt;</span>mdp<span class="bracket">&gt;</span> Health Design Sprint</span>
+        <span class="page">3 / 11</span>
+      </div>
+    </div>
+
+    <!-- Slide 4: Healthcare as Systems -->
+    <!-- SPEAKER NOTES: Healthcare is complex adaptive system. Problems rarely have single causes. Introduce the iceberg model. -->
+    <div class="slide slide--content" data-slide="4">
+      <h2><span class="bracket">&lt;</span> Healthcare as Complex Systems <span class="bracket">&gt;</span></h2>
+      <ul class="bullet-list">
+        <li><strong>Complex adaptive systems</strong> — Many interconnected parts, emergent behavior</li>
+        <li><strong>No single cause</strong> — Problems arise from system interactions</li>
+        <li><strong>Interventions ripple</strong> — Changes in one area affect others</li>
+        <li><strong>The visible is often not the cause</strong> — Look deeper</li>
+      </ul>
+      <div class="slide-footer">
+        <span class="logo"><span class="bracket">&lt;</span>mdp<span class="bracket">&gt;</span> Health Design Sprint</span>
+        <span class="page">4 / 11</span>
+      </div>
+    </div>
+
+    <!-- Slide 5: Iceberg Model -->
+    <!-- SPEAKER NOTES: Classic systems thinking visual. Events are visible, but patterns, structures, and mental models drive them. -->
+    <div class="slide slide--cool" data-slide="5">
+      <h2><span class="bracket">&lt;</span> The Iceberg Model <span class="bracket">&gt;</span></h2>
+      <div class="iceberg">
+        <div class="iceberg-level visible">Events (What happened?)</div>
+        <div class="iceberg-divider">— — — water line — — —</div>
+        <div class="iceberg-level patterns">Patterns (What trends repeat?)</div>
+        <div class="iceberg-level structures">Structures (What systems enable this?)</div>
+        <div class="iceberg-level mental">Mental Models (What beliefs drive behavior?)</div>
+      </div>
+      <div class="slide-footer">
+        <span class="logo"><span class="bracket">&lt;</span>mdp<span class="bracket">&gt;</span> Health Design Sprint</span>
+        <span class="page">5 / 11</span>
+      </div>
+    </div>
+
+    <!-- Slide 6: Stakeholder Mapping -->
+    <!-- SPEAKER NOTES: Primary users are the focus, but secondary and tertiary users enable or constrain solutions. -->
+    <div class="slide slide--content" data-slide="6">
+      <h2><span class="bracket">&lt;</span> Stakeholder Mapping <span class="bracket">&gt;</span></h2>
+      <div class="two-col">
+        <div class="col">
+          <h3>User Types</h3>
+          <ul>
+            <li><strong>Primary:</strong> Direct users of solution</li>
+            <li><strong>Secondary:</strong> Affected by solution</li>
+            <li><strong>Tertiary:</strong> Indirect stakeholders</li>
+          </ul>
+          <p style="margin-top: 24px; font-size: 14px; color: var(--color-gray-500);">Example: Patient (primary), Family (secondary), Billing (tertiary)</p>
+        </div>
+        <div class="col" style="display: flex; align-items: center; justify-content: center;">
+          <div style="text-align: center;">
+            <div style="font-size: 80px; color: var(--color-warm); margin-bottom: 16px;">( ( • ) )</div>
+            <p style="font-size: 14px; color: var(--color-gray-500);">Ripples of impact</p>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span class="logo"><span class="bracket">&lt;</span>mdp<span class="bracket">&gt;</span> Health Design Sprint</span>
+        <span class="page">6 / 11</span>
+      </div>
+    </div>
+
+    <!-- Slide 7: AI for Research -->
+    <!-- SPEAKER NOTES: Show how AI accelerates the research phase. Not replacement for interviews, but preparation. -->
+    <div class="slide slide--content" data-slide="7">
+      <h2><span class="bracket">&lt;</span> Using AI to Research <span class="bracket">&gt;</span></h2>
+      <ul class="bullet-list">
+        <li><strong>Rapid domain understanding</strong> — Landscape overview in minutes</li>
+        <li><strong>Stakeholder brainstorming</strong> — Surface non-obvious affected parties</li>
+        <li><strong>Assumption generation</strong> — What do we think we know?</li>
+        <li><strong>Interview prep</strong> — Draft questions, anticipate responses</li>
+      </ul>
+      <div class="claude-prompt">
+        <div class="label">Claude Prompt</div>
+        <code>"Help me understand the landscape of [problem domain] in healthcare. Who are all the stakeholders affected? Include non-obvious ones."</code>
+      </div>
+      <div class="slide-footer">
+        <span class="logo"><span class="bracket">&lt;</span>mdp<span class="bracket">&gt;</span> Health Design Sprint</span>
+        <span class="page">7 / 11</span>
+      </div>
+    </div>
+
+    <!-- Slide 8: NotebookLM Integration -->
+    <!-- SPEAKER NOTES: NotebookLM is powerful for synthesizing multiple sources. Demo uploading articles and asking questions. -->
+    <div class="slide slide--cool" data-slide="8">
+      <h2><span class="bracket">&lt;</span> NotebookLM for Synthesis <span class="bracket">&gt;</span></h2>
+      <ul class="bullet-list">
+        <li><strong>Upload sources:</strong> Articles, papers, transcripts</li>
+        <li><strong>Ask questions:</strong> "What are the main challenges in [domain]?"</li>
+        <li><strong>Generate audio:</strong> Create podcast-style overview</li>
+        <li><strong>Cross-reference:</strong> Find patterns across multiple sources</li>
+      </ul>
+      <div class="callout-tip">
+        <div class="label">* Tip</div>
+        <p>Upload 3-5 articles about your problem domain. Then ask: "What do these sources agree on? Where do they conflict?"</p>
+      </div>
+      <div class="slide-footer">
+        <span class="logo"><span class="bracket">&lt;</span>mdp<span class="bracket">&gt;</span> Health Design Sprint</span>
+        <span class="page">8 / 11</span>
+      </div>
+    </div>
+
+    <!-- Slide 9: Assumptions Inventory -->
+    <!-- SPEAKER NOTES: Critical step. We all have assumptions. Writing them down makes them testable. -->
+    <div class="slide slide--content" data-slide="9">
+      <h2><span class="bracket">&lt;</span> Building an Assumptions Inventory <span class="bracket">&gt;</span></h2>
+      <ul class="bullet-list">
+        <li><strong>What do you believe about this problem?</strong></li>
+        <li><strong>What do you believe about the users?</strong></li>
+        <li><strong>What do you believe about existing solutions?</strong></li>
+        <li><strong>Which assumptions, if wrong, would change everything?</strong></li>
+      </ul>
+      <div class="claude-prompt">
+        <div class="label">Claude Prompt</div>
+        <code>"What are common assumptions clinicians make about [problem] that might be wrong?"</code>
+      </div>
+      <div class="slide-footer">
+        <span class="logo"><span class="bracket">&lt;</span>mdp<span class="bracket">&gt;</span> Health Design Sprint</span>
+        <span class="page">9 / 11</span>
+      </div>
+    </div>
+
+    <!-- Slide 10: Discussion -->
+    <!-- SPEAKER NOTES: Use these prompts to get the room talking. Hidden stakeholders are often the key insight. -->
+    <div class="slide slide--energy" data-slide="10">
+      <h2><span class="bracket">&lt;</span> Discussion Questions <span class="bracket">&gt;</span></h2>
+      <div class="callout-discuss">
+        <div class="label">> Discussion</div>
+        <p>"What's the difference between a user, a customer, and a beneficiary in healthcare?"</p>
+      </div>
+      <div class="callout-discuss" style="margin-top: 16px;">
+        <div class="label">> Discussion</div>
+        <p>"Who are the 'hidden' stakeholders in your problem—people affected but rarely consulted?"</p>
+      </div>
+      <div class="callout-discuss" style="margin-top: 16px;">
+        <div class="label">> Discussion</div>
+        <p>"What assumptions does your team hold that you need to test with real users?"</p>
+      </div>
+      <div class="slide-footer">
+        <span class="logo"><span class="bracket">&lt;</span>mdp<span class="bracket">&gt;</span> Health Design Sprint</span>
+        <span class="page">10 / 11</span>
+      </div>
+    </div>
+
+    <!-- Slide 11: Today's Deliverables -->
+    <!-- SPEAKER NOTES: Clear expectations. This is what they'll produce by end of day. -->
+    <div class="slide slide--dark" data-slide="11">
+      <h2><span class="bracket">&lt;</span> Today's Deliverables <span class="bracket">&gt;</span></h2>
+      <ul class="bullet-list">
+        <li><strong>Problem domain research document</strong> — Claude conversation exported</li>
+        <li><strong>Stakeholder map</strong> — Visual showing relationships</li>
+        <li><strong>Primary user group identified</strong> — With rationale</li>
+        <li><strong>Assumptions inventory</strong> — Minimum 10 assumptions to test</li>
+        <li><strong>Interview outreach</strong> — Minimum 4 recruitment messages sent</li>
+        <li><strong>NotebookLM workspace</strong> — 3+ sources uploaded</li>
+      </ul>
+      <div class="slide-footer">
+        <span class="logo"><span class="bracket">&lt;</span>mdp<span class="bracket">&gt;</span> Health Design Sprint</span>
+        <span class="page">11 / 11</span>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="nav-hint">Use arrow keys to navigate</div>
+
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    let currentSlide = 0;
+    function showSlide(index) {
+      slides.forEach((slide, i) => slide.classList.toggle('active', i === index));
+      currentSlide = index;
+    }
+    function nextSlide() { if (currentSlide < slides.length - 1) showSlide(currentSlide + 1); }
+    function prevSlide() { if (currentSlide > 0) showSlide(currentSlide - 1); }
+    document.addEventListener('keydown', (e) => {
+      switch(e.key) {
+        case 'ArrowRight': case 'ArrowDown': case ' ': case 'PageDown': e.preventDefault(); nextSlide(); break;
+        case 'ArrowLeft': case 'ArrowUp': case 'PageUp': e.preventDefault(); prevSlide(); break;
+        case 'Home': e.preventDefault(); showSlide(0); break;
+        case 'End': e.preventDefault(); showSlide(slides.length - 1); break;
+      }
+    });
+    document.addEventListener('click', (e) => {
+      const x = e.clientX, width = window.innerWidth;
+      if (x > width * 0.7) nextSlide();
+      else if (x < width * 0.3) prevSlide();
+    });
+    showSlide(0);
+  </script>
+</body>
+</html>

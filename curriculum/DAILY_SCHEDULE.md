@@ -97,10 +97,11 @@
 | 1:00-1:30 | **Speedrun Shareout** | Virtual |
 | | - Each team: 3-min concept pitch | |
 | | - Facilitator observations on process | |
-| 1:30-3:00 | **Team Formation & Problem Domain Selection** | Hybrid |
-| | - Form teams of 4-5 | |
-| | - Review available problem domains | |
-| | - Initial team norming | |
+| 1:30-3:00 | **Challenge Pitches & Team Formation** | Hybrid |
+| | - Students pitch challenge areas (2 min each) | |
+| | - Form teams around shared interests (2-3 students) | |
+| | - Initial challenge scoping with faculty guidance | |
+| | - Discuss feasibility: data access, user availability, HIPAA | |
 | 3:00-3:30 | **Tool Setup & Troubleshooting** | Hybrid |
 | | - Verify Claude Pro access | |
 | | - Set up Replit team accounts | |
@@ -117,7 +118,8 @@
 
 ### Deliverables (Due by 5:00 PM)
 - [ ] Team roster submitted (names, emails, campus location)
-- [ ] Problem domain ranked preferences (top 3)
+- [ ] Challenge pitch summary (1 paragraph describing your challenge area)
+- [ ] Initial feasibility assessment (data access, user availability, scope)
 - [ ] Speedrun paper prototype photo uploaded
 - [ ] Individual reflection: "What surprised me about the speedrun?" (2-3 sentences, submitted via form)
 
@@ -134,7 +136,7 @@
 | Knowledge | Skills | Mindset |
 |-----------|--------|---------|
 | Understand systems thinking in healthcare | Create comprehensive stakeholder maps | Suspend assumptions—observe first |
-| Recognize the difference between symptoms and root causes | Use AI to research problem domains rapidly | Every stakeholder's perspective has value |
+| Recognize the difference between symptoms and root causes | Use AI to research challenge areas rapidly | Every stakeholder's perspective has value |
 | Know primary, secondary, and tertiary user distinctions | Document observations systematically | Curiosity over certainty |
 
 ### Schedule
@@ -145,16 +147,17 @@
 | | - Healthcare as complex adaptive systems | |
 | | - The iceberg model: events → patterns → structures → mental models | |
 | | - Stakeholder mapping frameworks | |
-| | - Demo: Using Claude to research a problem domain | |
+| | - Demo: Using Claude to research a challenge area | |
 | | - Demo: NotebookLM for synthesizing background research | |
-| 9:45-10:30 | **Discussion: Your Assigned Problem Domain** | Virtual |
+| 9:45-10:30 | **Discussion: Your Team's Challenge Area** | Virtual |
 | | - What do you already know/assume? | |
 | | - What would you need to learn? | |
 | | - Who are all the people touched by this problem? | |
+| | - Scope check: Is this feasible in 2 weeks? | |
 | 10:30-10:45 | Break | |
 | 10:45-1:00 | **Team Work: Problem Domain Deep Dive** | Hybrid |
-| | - Use Claude to research your problem domain | |
-| | - Create initial problem domain map | |
+| | - Use Claude to research your challenge area | |
+| | - Create initial challenge area map | |
 | | - Build comprehensive stakeholder map | |
 | | - Identify assumptions to test | |
 | 1:00-2:00 | Lunch | |
@@ -168,11 +171,11 @@
 
 ### AI Tool Integration
 - **Claude Pro**:
-  - "Help me understand the landscape of [problem domain] in healthcare"
+  - "Help me understand the landscape of [challenge area] in healthcare"
   - "Who are all the stakeholders affected by [problem]? Include non-obvious ones"
   - "What are common assumptions clinicians make about [problem] that might be wrong?"
   - Draft recruitment emails for interview participants
-- **NotebookLM**: Upload 3-5 articles about your problem domain; generate audio overview; ask synthesis questions
+- **NotebookLM**: Upload 3-5 articles about your challenge area; generate audio overview; ask synthesis questions
 
 ### Discussion Prompts
 1. "What's the difference between a user, a customer, and a beneficiary in healthcare? Give examples from your domain."
@@ -232,7 +235,7 @@
 
 ### AI Tool Integration
 - **Claude Pro**:
-  - "Help me create an interview guide for [user type] about [problem domain]. Include opening rapport questions, core exploration questions, and closing questions."
+  - "Help me create an interview guide for [user type] about [challenge area]. Include opening rapport questions, core exploration questions, and closing questions."
   - "I just finished an interview. Here are my notes: [paste notes]. What follow-up questions should I have asked?"
   - "Review my interview guide and suggest questions I might be missing"
 - **Otter.ai/Zoom transcription**: Auto-transcribe all interviews

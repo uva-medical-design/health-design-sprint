@@ -58,6 +58,22 @@
 **Out of scope:**
 -
 
+### Feasibility Guardrails
+
+<!-- Faculty will review these criteria during design brief approval -->
+
+| Criterion | Assessment | Notes |
+|-----------|------------|-------|
+| **Data Access** | Can we get the data we need without HIPAA/IRB complications? | |
+| **User Availability** | Can we reach 4-6 users for interviews and testing within 2 weeks? | |
+| **Technical Scope** | Can this be prototyped with Claude Code/Replit in ~3 days? | |
+| **Regulatory** | Does this avoid clinical decision-making that requires FDA clearance? | |
+| **Time Bound** | Can we complete a testable prototype by Day 8? | |
+
+**Faculty Scoping Notes:**
+<!-- Instructor feedback on feasibility -->
+
+
 ## Open Questions
 
 <!-- What do you still need to learn? -->

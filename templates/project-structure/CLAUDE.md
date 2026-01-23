@@ -44,8 +44,16 @@ my-project/
 ## Constraints
 <!-- Time limits, technical limits, scope boundaries -->
 - 2-week timeline (Feb 16-27)
-- No patient data
+- No patient data without IRB approval
 - Prototype should be testable with classmates
+
+## Feasibility Guardrails (From Scoping)
+<!-- Completed during Day 1 scoping session with faculty -->
+- [ ] Data Access: Can obtain needed data without HIPAA/IRB complications
+- [ ] User Availability: Can reach 4-6 users for interviews/testing
+- [ ] Technical Scope: Prototypable in ~3 days with AI tools
+- [ ] Regulatory: Avoids FDA-regulated clinical decision-making
+- [ ] Faculty Approved: Design brief reviewed and approved
 
 
 ## What Claude Should Know

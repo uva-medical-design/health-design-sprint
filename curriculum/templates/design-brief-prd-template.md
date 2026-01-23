@@ -204,6 +204,20 @@ For each section, apply the **Agent-Ready Check**:
 | Resources | |
 | Regulatory | |
 
+### Feasibility Guardrails (Faculty Review)
+
+Before proceeding, confirm feasibility with faculty on these criteria:
+
+| Guardrail | Status | Notes |
+|-----------|--------|-------|
+| **Data Access** — Can data be obtained without HIPAA/IRB? | [ ] Yes [ ] Needs discussion | |
+| **User Availability** — Can 4-6 users be reached in 2 weeks? | [ ] Yes [ ] Needs discussion | |
+| **Technical Scope** — Prototypable in 3 days with AI tools? | [ ] Yes [ ] Needs discussion | |
+| **Regulatory** — Avoids FDA-regulated clinical decisions? | [ ] Yes [ ] Needs discussion | |
+| **Ethical** — No vulnerable populations without oversight? | [ ] Yes [ ] Needs discussion | |
+
+**Faculty Sign-off:** _________________ Date: _______
+
 ### Future Considerations (Not for MVP)
 *What might a future version include?*
 
