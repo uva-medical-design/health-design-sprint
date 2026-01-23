@@ -1,0 +1,1565 @@
+# ============================================================
+# HEALTH DESIGN SPRINT: MASTER SCHEDULE
+# Single source of truth for course generation
+# ============================================================
+# Last updated: 2026-01-22
+# Maintainer: Matt Trowbridge
+# 
+# USAGE:
+# - Edit this file to change course structure
+# - Claude Code reads this to generate materials
+# - Keep in sync with GitHub: uva-medical-design/health-design-sprint
+# ============================================================
+
+# ============================================================
+# COURSE METADATA
+# ============================================================
+course:
+  name: "Health Design Sprint: Rapid Prototyping with AI"
+  code: "M4-HDS-2026"
+  version: "1.0-pilot"
+  
+  dates:
+    start: "2026-02-16"  # Monday
+    end: "2026-02-27"    # Friday
+    duration_days: 10
+    duration_weeks: 2
+    
+  schedule_context:
+    match_list_deadline: "2026-02-28"  # Students may have this on their minds
+    note: "Course ends day before match deadline - acknowledge but don't dwell"
+    
+  campuses:
+    - name: "UVA Charlottesville"
+      code: "cville"
+      location: "Medical Design Lab, 1400 University Ave, Room B020"
+      
+    - name: "INOVA"
+      code: "inova"
+      location: "TBD - coordinate with Pamela Crawford"
+      
+  enrollment:
+    min: 6
+    max: 16
+    current: 7
+    
+  delivery:
+    mode: "virtual-first"
+    rationale: >
+      Virtual-first ensures neither campus feels secondary.
+      Many students will be remote regardless of campus assignment.
+      Recordings become course materials.
+      Transcript workflows are easier to teach virtually.
+    synchronous_platform: "Zoom"
+    async_collaboration: "GitHub"
+    async_communication: 
+      primary: "TBD - test preference at orientation"
+      options: ["Slack", "Discord", "iMessage group", "Email only"]
+      decision_point: "Orientation Zoom 1/26"
+
+# ============================================================
+# PEOPLE
+# ============================================================
+people:
+  instructor:
+    name: "Matthew Trowbridge, MD, MPH"
+    role: "Course Director"
+    email: "mtrowbridge@virginia.edu"
+    titles:
+      - "Associate Professor of Emergency Medicine"
+      - "Director, Medical Design Program"
+      - "Director, Student/Resident Research"
+      
+  staff:
+    - name: "Penny Carlisle"
+      role: "Lab Assistant"
+      responsibilities:
+        - "Space setup and supplies"
+        - "Day-of logistics"
+        - "Student facility questions"
+      contact_method: "Brief in person, share 2-week calendar"
+      
+    - name: "Sarah Derr"
+      role: "Supply Ordering"
+      responsibilities:
+        - "Amazon orders"
+        - "Catering coordination"
+        - "Advance purchasing"
+      contact_method: "Email list with deadlines"
+      
+    - name: "Kyle Williams"
+      role: "Medical Education Programs Administrator"
+      responsibilities:
+        - "Student rosters"
+        - "SOM policies"
+        - "Administrative support"
+        - "Future scaling questions"
+      contact_method: "Email, regular check-ins"
+      
+    - name: "Pamela Crawford"
+      role: "INOVA Curriculum Manager"
+      responsibilities:
+        - "INOVA classroom logistics"
+        - "INOVA student support"
+      contact_method: "Email, establish communication channel"
+      
+  students:
+    # Matt has emails and campus assignments from previous conversations
+    # Update here after orientation Zoom confirmation
+    roster_status: "Available - request from Matt or check previous chats"
+    count: 7
+    campus_split: "TBD - confirm at orientation (many may be virtual regardless)"
+    names:
+      - "Christopher Baiocco"
+      - "Danielle Jones"
+      - "Farah Kabir"
+      - "Magdalene Kwarteng"
+      - "Matthew Nguyen"
+      - "Kevin Shannon"
+      - "Joselyne Tessa Tonleu"
+      
+  guest_speakers:
+    philosophy: >
+      Keep it to 2-3 speakers max. Each should directly inform student work.
+      Morning slot so insights can be applied in afternoon.
+      
+    confirmed:
+      - id: "speaker_byron_crowe"
+        name: "Byron Crowe"
+        affiliation: "Doctronic AI"
+        topic: "Human-Centered Design in Healthcare AI"
+        teaching_point: "More important to know how to frame the problem than to code"
+        preferred_day: 2  # Week 1, early - validates design thinking approach
+        time_slot: "morning_didactic"
+        format: "virtual"
+        duration_minutes: 45
+        status: "confirmed"
+        
+      - id: "speaker_justin_massa"
+        name: "Justin Massa"
+        affiliation: "TBD"
+        topic: "Jigs: Hardening AI Applications from Demo to Reproducible System"
+        teaching_point: "Moving beyond prototypes to systems that work reliably"
+        preferred_day: 6  # Week 2, Monday - after weekend, projects taking shape
+        time_slot: "morning_didactic"
+        format: "virtual"
+        duration_minutes: 45
+        status: "confirmed"
+        
+    optional_slot:
+      description: "Reserve one slot in case a third speaker feels useful"
+      potential_days: [4, 8]  # Mid-week options in either week
+      status: "hold"
+      notes: "Decide by end of Week 1 if needed"
+
+# ============================================================
+# TOOL STACK
+# ============================================================
+tools:
+  philosophy: >
+    Simplicity first. Fewer tools, deeper mastery.
+    Claude is primary but not exclusive - model tool diversity.
+    Tools will be obsolete in 6 months - workflow is what's reproducible.
+    
+  primary:
+    - name: "Claude Pro"
+      role: "Primary AI partner"
+      use: "Chat, code generation, artifacts, analysis"
+      access: "All students have UVA-provided accounts"
+      required: true
+      
+    - name: "GitHub"
+      role: "Version control + collaboration"
+      use: "All artifacts, commits as design documentation"
+      organization: "uva-medical-design"
+      repository: "health-design-sprint"
+      required: true
+      
+    - name: "Zoom"
+      role: "Synchronous sessions"
+      use: "Morning sessions, closeouts, check-ins"
+      feature_requirement: "Auto-transcription enabled"
+      required: true
+      
+    - name: "Vapi"
+      role: "Voice agent infrastructure"
+      use: "Daily check-ins, potential student prototypes"
+      required: true
+      
+  secondary:
+    - name: "Miro"
+      role: "Visual collaboration"
+      use: "Journey maps, affinity diagrams, team boards"
+      access: "UVA license available"
+      research_needed:
+        - "Claude integration capabilities"
+        - "GitHub integration for versioning"
+      required: false
+      
+    - name: "NotebookLM"
+      role: "Research synthesis"
+      use: "Grounding AI on specific source documents"
+      session: "Day 2 or 3 - research phase"
+      teaching_point: "When you need AI anchored to specific sources"
+      required: false
+      
+    - name: "Replit"
+      role: "Mobile app prototyping"
+      use: "ONLY if project genuinely needs mobile"
+      capability: "TestFlight deployment for iOS"
+      rule: "'No Apps' default - must justify delivery vehicle"
+      required: false
+      
+  contextual:
+    - name: "Gemini"
+      use: "Demonstrate tool diversity, Google ecosystem"
+      session: "Brief demo - Claude isn't the only option"
+      
+    - name: "ElevenLabs"
+      use: "Voice synthesis demo, potential video generation"
+      status: "Experiment - remind Matt to try"
+      
+    - name: "Gamma"
+      use: "Slide generation for final presentations"
+
+# ============================================================
+# DAILY STRUCTURE TEMPLATE
+# ============================================================
+daily_structure:
+  philosophy:
+    morning: "Learning, inputs, reflection - receiving knowledge"
+    afternoon: "Doing, building, applying - creating artifacts"
+    debrief: "Reflect, synthesize, connect - processing the day"
+    
+  vibe: >
+    This is supposed to be FUN and not too intense. 
+    Projects and daily milestones should be achievable in a 2-3 hour 
+    work session without stress. Each morning should feel exploratory 
+    and engaging. Afternoon tasks should be clear, manageable, and 
+    well-planned before students dive in.
+    
+  default_schedule:
+    start: "9:00 AM EST"
+    end: "4:45 PM EST"
+    
+    blocks:
+      # ===== MORNING: LEARNING =====
+      - id: "solo_exercise"
+        name: "Solo Learning Exercise"
+        time: "9:00-9:45"
+        duration_minutes: 45
+        type: "async_individual"
+        format: "Self-paced, virtual-friendly"
+        description: >
+          Short exercise targeting day's knowledge/skill/mindset.
+          Completed independently before group session.
+          Should feel exploratory, not like homework.
+        deliverable:
+          type: "exercise_submission"
+          method: "GitHub commit"
+          due: "9:45 AM"
+        design_notes: >
+          Craft these after schedule finalized.
+          Could incorporate meta-skills as video nuggets.
+          Keep light and interesting.
+          
+      - id: "morning_session"
+        name: "Morning Main Session"
+        time: "10:00-12:00"
+        duration_minutes: 120
+        type: "synchronous_group"
+        format: "Zoom - all students join virtually"
+        flexibility: >
+          This is a rough guide, not rigid. If a hands-on needs more time,
+          or a guest wants to run longer and do an exercise, flex around it.
+        components:
+          - id: "checkin"
+            name: "Check-in"
+            time: "10:00-10:15"
+            description: "Reflect on solo exercise, surface questions, morning voice reflection"
+            
+          - id: "didactic"
+            name: "Didactic / Guest Lecture"
+            time: "10:15-11:00"
+            description: "Instructor input OR guest speaker"
+            
+          - id: "discussion"
+            name: "Group Discussion"
+            time: "11:00-11:30"
+            description: "Processing, Q&A, examples, peer insights"
+            
+          - id: "hands_on"
+            name: "Hands-On Activity"
+            time: "11:30-11:50"
+            description: "Brief applied activity together"
+            
+          - id: "afternoon_brief"
+            name: "Afternoon Assignment Brief"
+            time: "11:50-12:00"
+            description: >
+              Assignment for PM work session including:
+              - Specific goals (achievable in 2-3 hours)
+              - Success metrics  
+              - Deliverables
+              - Clear plan before diving in
+              
+      # ===== MIDDAY =====
+      - id: "lunch"
+        name: "Lunch + Office Hours"
+        time: "12:00-1:00"
+        duration_minutes: 60
+        type: "break"
+        instructor_availability: >
+          Matt available for quick check-ins.
+          Contact: Cell phone (share at orientation) or Slack/message ping.
+          Drop-in style - no appointment needed.
+        
+      # ===== AFTERNOON: DOING =====
+      - id: "work_session"
+        name: "Team Work Session"
+        time: "1:00-3:30"
+        duration_minutes: 150
+        type: "async_team"
+        format: "Independent work, teams self-organize"
+        support:
+          instructor: "Available by ping → quick Zoom"
+          ai_support: "Claude + potential tech support agent"
+        deliverables:
+          - type: "voice_checkin"
+            due: "3:15 PM"
+            scope: "individual"
+            
+          - type: "github_commit"
+            due: "3:30 PM"
+            scope: "individual"
+            content: "Day's work progress"
+            
+      - id: "closeout"
+        name: "Group Closeout"
+        time: "4:00-4:45"
+        duration_minutes: 45
+        type: "synchronous_group"
+        format: "Zoom"
+        facilitation: >
+          Claude preps automated daily summary pulling from:
+          - Voice agent intakes (3:15 PM)
+          - GitHub commit messages (3:30 PM)
+          - Comments/themes from morning transcript
+          - Any flagged blockers
+          
+          This demonstrates how inputs and tools work together 
+          in modern AI-powered work.
+        components:
+          - id: "recap"
+            name: "Day Recap"
+            time: "4:00-4:15"
+            description: "What did we accomplish today? (AI-assisted summary)"
+            
+          - id: "reflection"
+            name: "KSM Reflection"
+            time: "4:15-4:30"
+            description: "Knowledge, skill, mindset - what stuck?"
+            
+          - id: "preview"
+            name: "Tomorrow Preview"
+            time: "4:30-4:45"
+            description: "Tomorrow's focus, any prep needed"
+            
+    automated_daily_summary:
+      description: >
+        Generate end-of-day synthesis that pulls together all inputs.
+        Demonstrates modern AI workflow integration.
+      inputs:
+        - source: "voice_agent"
+          content: "Individual and team check-ins"
+        - source: "github"
+          content: "Commit messages and file changes"
+        - source: "zoom_transcript"
+          content: "Key themes from morning session"
+      output: "Summary doc for closeout facilitation + student reference"
+      
+    overnight:
+      philosophy: "Rest and subconscious processing, not homework"
+      typical: "No assignments"
+      exceptions:
+        - day: 4
+          reason: "Design brief polish before Day 5 presentations"
+        - day: 9
+          reason: "Final prototype prep for Day 10"
+
+# ============================================================
+# VOICE AGENT SYSTEM
+# ============================================================
+voice_agent:
+  philosophy: >
+    Supplement, never replace, human contact.
+    Quick structured reflection, not surveillance.
+    Keep it light and conversational.
+    Should feel supportive, never evaluative.
+    
+  tool: "Vapi"
+  
+  touchpoints:
+    morning_reflection:
+      timing: "After solo exercise, before 10am session"
+      duration: "90 seconds"
+      required: false  # Encouraged, not mandatory
+      focus: "Connect to day's learning"
+      features:
+        - "Reference the specific pre-day exercise just completed"
+        - "Preview day's goals and learning targets"
+        - "Surface any questions brewing"
+      prompts:
+        - "Good morning! You just finished [today's exercise]. What stood out to you?"
+        - "Today we're focusing on [day's theme]. What's one thing you're hoping to understand better?"
+        - "Any questions from the exercise you want to bring to the group?"
+        
+    afternoon_checkin:
+      timing: "3:15 PM"  # 15 min before GitHub commit deadline
+      duration: "3-4 minutes"
+      required: true
+      focus: "Work session progress + light coaching"
+      features:
+        - "Capture progress and blockers"
+        - "Light probing on understanding (supportive, not evaluative)"
+        - "Suggest relevant resources when appropriate"
+        - "Reference current workflow phase"
+      prompts:
+        - "What did you accomplish this afternoon?"
+        - "Where are you in the [current phase] of the workflow?"
+        - "What's one thing you tried that didn't work? What did you learn from it?"
+        - "Is there anything you're uncertain about that I could point you toward a resource for?"
+        - "What's your plan for tomorrow?"
+      resource_suggestion:
+        description: "Agent can suggest relevant readings, videos, or examples"
+        source: "Reference library (GitHub folder or custom GPT)"
+        trigger: "When student expresses uncertainty about a concept"
+        
+    team_log:
+      timing: "End of day, one person per team rotates"
+      duration: "2-3 minutes"
+      required: true
+      focus: "Team coordination"
+      prompts:
+        - "What did your team complete today?"
+        - "Any decisions or pivots you made? What prompted them?"
+        - "What's blocking progress?"
+        - "How's the team dynamic feeling?"
+        
+    agent_feedback:
+      description: "Include in daily closeout - ask students about the agent"
+      timing: "Part of 4pm Zoom closeout"
+      question: "Quick check: How was the voice check-in today? Helpful? Annoying? Ideas to improve it?"
+      purpose: "Iterate on agent design during course"
+      
+  instructor_features:
+    dashboard:
+      - "Aggregated themes across all check-ins (Claude summary)"
+      - "Flagged blockers - students who mentioned being stuck"
+      - "Sentiment trends - early warning for frustration"
+      - "Resource suggestions made - track what's being recommended"
+      
+    closeout_prep:
+      - "Auto-generate summary for 4pm Zoom from day's inputs"
+      - "Highlight interesting pivots or insights to discuss"
+      - "Flag students who might need extra support"
+      
+  reference_library:
+    description: "Resources the agent can draw from for suggestions"
+    options:
+      - "Custom GPT with curated content"
+      - "GitHub folder with organized references"
+      - "Notion database (existing Snipd sync)"
+    future_exploration:
+      - "Grok API for live relevant tweets/stories"
+      - "MCP connector to Notion"
+    v1_scope: "Keep simple - GitHub folder with key resources, manually curated"
+      
+  development_timeline:
+    - phase: "Pre-course sprint"
+      dates: "2026-01-27 to 2026-02-07"
+      actions:
+        - "Matt builds agent using 14-phase workflow"
+        - "Document journey as student example / Day 1 demo"
+        - "Test with mock conversations"
+        - "Experiment with resource suggestion feature"
+        
+    - phase: "Refinement"
+      dates: "2026-02-08 to 2026-02-14"
+      actions:
+        - "Refine prompts based on testing"
+        - "Set up transcript storage in GitHub"
+        - "Prepare student onboarding"
+        - "Finalize reference library for suggestions"
+        
+    - phase: "Go live"
+      date: "2026-02-16"
+      action: "Introduce to students, first check-in"
+      
+    - phase: "Iterate during course"
+      dates: "2026-02-16 to 2026-02-27"
+      action: "Adjust based on daily agent feedback from students"
+
+# ============================================================
+# CROSS-TEAM FEEDBACK SESSIONS
+# ============================================================
+cross_team_feedback:
+  philosophy: >
+    External perspective reveals blind spots.
+    Practicing giving feedback is a skill.
+    Creates cohort cohesion across campuses.
+    
+  feedback_frameworks:
+    primary: "I Like, I Wish, I Wonder"
+    description: >
+      Simple, structured format from design thinking tradition.
+      Keeps feedback constructive and actionable.
+    format:
+      - "I like... (what's working, what resonates)"
+      - "I wish... (what could be different, suggestions)"
+      - "I wonder... (questions, curiosities, provocations)"
+    teaching_moment: >
+      Introduce framework on Day 3. Model it. 
+      Connect to Knowledge (frameworks exist), Skills (practice using it),
+      Mindset (feedback as gift, not criticism).
+      
+    alternative_frameworks:
+      - name: "Rose, Thorn, Bud"
+        use: "Alternative framing if I Like/Wish/Wonder feels stale"
+        format: ["Rose (positive)", "Thorn (challenge)", "Bud (potential)"]
+      - name: "Yes, And..."
+        use: "For building on ideas rather than critiquing"
+        format: "Accept the premise, then extend it"
+        
+  facilitation_tools:
+    - "Timer for each feedback round"
+    - "Miro/whiteboard for capturing feedback visually"
+    - "Template for notetaker to capture in GitHub"
+    
+  sessions:
+    - id: "week1_checkpoint"
+      name: "Week 1 Problem Check"
+      day: 3
+      timing: "Part of closeout or dedicated 30-45 min"
+      format: "Each team presents problem statement + direction (5 min)"
+      feedback_protocol:
+        framework: "I Like, I Wish, I Wonder"
+        prompts:
+          - "I like how you framed the problem because..."
+          - "I wish you'd explored... / I wish it was clearer who..."
+          - "I wonder if [assumption] is true... / I wonder what would happen if..."
+      learning_targets:
+        knowledge: "Structured feedback frameworks exist and have names"
+        skills: "Give feedback using a framework"
+        mindset: "Feedback helps the giver as much as receiver"
+        
+    - id: "week1_briefs"
+      name: "Design Brief Presentations"
+      day: 5
+      timing: "Dedicated 60-90 min session"
+      format: "Formal design brief presentations to full cohort"
+      feedback_protocol:
+        framework: "I Like, I Wish, I Wonder"
+        additional: "Focus on feasibility and testability"
+        prompts:
+          - "I like that the hypothesis is testable because..."
+          - "I wish the scope was [narrower/broader] because..."
+          - "I wonder how you'll measure success..."
+      deliverable: "Design brief document submitted to GitHub"
+      
+    - id: "week2_prototype"
+      name: "Prototype Check"
+      day: 8
+      timing: "45 min in afternoon"
+      format: "Demo current prototype, get reactions"
+      feedback_protocol:
+        framework: "User perspective feedback"
+        prompts:
+          - "As a user, I liked... (what worked)"
+          - "As a user, I was confused by... (friction points)"
+          - "One thing to prioritize before Friday..."
+      note: "Feedback should be from user perspective, not design critique"
+        
+    - id: "week2_finals"
+      name: "Final Presentations"
+      day: 10
+      timing: "90 min dedicated session"
+      format: "Final presentations to cohort + invited guests"
+      deliverable: "Final prototype + presentation deck"
+      audience:
+        required:
+          - "All students"
+          - "Matt"
+        invited:
+          - "EM Department: Andrew Taylor, George Glass, Tom Hartka"
+          - "Medical Design Program alumni"
+          - "Medical students on research projects"
+          - "Other interested faculty"
+        invitation_note: "Send invite 1 week before, casual/open attendance"
+
+# ============================================================
+# EVALUATION
+# ============================================================
+evaluation:
+  official_requirement:
+    grade_type: "Pass / Fail"
+    documentation: "Short paragraph commentary per student"
+    note: "Formal rubric was for application approval; operational approach is lighter"
+    
+  philosophy: >
+    Light grading, heavy feedback.
+    Process and learning over polish and completion.
+    Highlight what matters for AI-powered teamwork.
+    
+  key_moments:
+    - name: "Problem Framing"
+      timing: "Days 1-3"
+      importance: "high"
+      signals:
+        - "Evidence of stakeholder input"
+        - "Clear articulation of who/what/why"
+        - "Scope appropriate for 2 weeks"
+        
+    - name: "Design Brief Quality"
+      timing: "Day 5"
+      importance: "high"
+      signals:
+        - "Research-backed problem statement"
+        - "Testable hypothesis"
+        - "Feasible prototype direction"
+        
+    - name: "Iteration Evidence"
+      timing: "Days 6-9"
+      importance: "high"
+      signals:
+        - "GitHub history shows evolution"
+        - "Documented pivots with rationale"
+        - "User feedback incorporated"
+        
+    - name: "Final Prototype"
+      timing: "Day 10"
+      importance: "medium"
+      signals:
+        - "Functional enough to test insight"
+        - "Clear connection to problem"
+      note: "NOT judged on polish"
+      
+    - name: "Reflection & Documentation"
+      timing: "Throughout"
+      importance: "high"
+      signals:
+        - "Daily commits with meaningful messages"
+        - "Voice check-in engagement"
+        - "Journal entries show metacognition"
+        
+  teamwork_skills:
+    - "Communication clarity"
+    - "Workload distribution"
+    - "Constructive feedback given/received"
+    - "Coordination across virtual/in-person"
+    
+  paragraph_template: >
+    [Name] demonstrated [strength] throughout the sprint,
+    particularly in [specific example]. Their contribution
+    to [team outcome] showed [skill]. Area for continued
+    growth: [constructive observation].
+
+# ============================================================
+# PRE-COURSE TIMELINE
+# ============================================================
+pre_course:
+  - id: "orientation_zoom"
+    date: "2026-01-26"
+    time: "5:00 PM EST"
+    type: "touchpoint"
+    name: "Orientation Zoom Call"
+    duration_minutes: 45
+    objectives:
+      - "Introduce instructor and course philosophy"
+      - "Gather logistics: actual campus location, tech setup, remote plans"
+      - "Pitch med-education/intern-workflow project direction"
+      - "Confirm virtual vs in-person preferences"
+      - "Build initial cohort connection"
+      - "Float optional Charlottesville social gathering"
+    deliverables:
+      - "Recording + transcript"
+      - "Updated student roster with confirmed details"
+    triggers:
+      - "Send pre-work package within 24 hours"
+      - "Send AI competencies survey link"
+      
+  - id: "prework_sent"
+    date: "2026-01-27"
+    type: "milestone"
+    name: "Pre-work Package Sent"
+    contents:
+      - file: "welcome_letter.md"
+        description: "Course overview, expectations, instructor intro"
+        
+      - file: "prework_checklist.md"
+        description: "Master checklist of all pre-work items"
+        
+      - file: "github_setup_guide.md"
+        description: "Account creation, org invite, GitHub Desktop, clone repo"
+        video: "github_basics_video.mp4"
+        
+      - file: "tool_accounts.md"
+        description: "Minimal tool setup - Claude Pro (already have), Vapi intro"
+        
+      - file: "design_thinking_intro.md"
+        description: "Curated readings + videos on design thinking fundamentals"
+        
+      - file: "empathy_map_exercise.md"
+        description: "Micro-project: empathy map from personal healthcare experience"
+        
+      - link: "ai_competencies_survey"
+        description: "Pre-course survey (course feedback framing, not research)"
+        
+  - id: "instructor_check"
+    date: "2026-02-07"
+    type: "internal"
+    name: "Instructor Mid-Point Check"
+    actions:
+      - "Review any early pre-work submissions"
+      - "Check GitHub org membership status"
+      - "Follow up with non-responders to survey"
+      - "Finalize guest speaker schedule"
+      - "Complete voice agent development sprint"
+      
+  - id: "prework_due"
+    date: "2026-02-13"
+    time: "5:00 PM EST"
+    type: "milestone"
+    name: "Pre-work Due"
+    requirements:
+      - "GitHub account created + org membership confirmed"
+      - "GitHub Desktop installed + repo cloned"
+      - "AI competencies survey completed"
+      - "Empathy map submitted (GitHub commit)"
+      - "Readings completed (honor system)"
+    note: "Thursday deadline gives Fri-Sun to troubleshoot before Day 1"
+    
+  - id: "final_prep"
+    dates: "2026-02-14 to 2026-02-15"
+    type: "internal"
+    name: "Final Prep Weekend"
+    actions:
+      - "Review all pre-work submissions"
+      - "Troubleshoot any GitHub/tool issues"
+      - "Finalize Day 1 materials"
+      - "Test voice agent with real prompts"
+      - "Confirm Zoom settings (transcription, recording)"
+      - "Send Day 1 logistics reminder"
+
+# ============================================================
+# PRE-ELECTIVE COMPUTER SETUP
+# (Part of pre-work package - getting students' machines ready)
+# ============================================================
+pre_elective_setup:
+  philosophy: >
+    Get students' machines configured before Day 1 so we can 
+    hit the ground running. This is also where meta-skills 
+    (connectors, project structure, etc.) can be introduced 
+    organically as part of "why we're setting this up."
+    
+  components:
+    - id: "github_setup"
+      name: "GitHub + GitHub Desktop"
+      materials:
+        - "prework-github-basics.md"
+        - "video-script-github-basics.md (record this)"
+        - "day1-github-exercise.md (for Day 1)"
+      status: "Complete - created earlier in this session"
+      
+    - id: "claude_setup"
+      name: "Claude Pro Configuration"
+      materials_needed:
+        - "claude-setup-guide.md"
+        - "Tour video: Claude Chat vs Claude Code"
+        - "When to use which (chat for thinking, code for building)"
+      notes: "Students already have Claude Pro via UVA"
+      
+    - id: "project_structure"
+      name: "Project Folder Setup"
+      materials_needed:
+        - "project-structure-guide.md"
+        - "Why folder structure matters (phased workplans concept)"
+        - "Sample folder template to copy"
+      meta_skill_integration: "phased_workplans"
+      
+    - id: "mcp_intro"
+      name: "MCP Server Basics (Optional)"
+      materials_needed:
+        - "mcp-demystified.md (or video)"
+        - "Simple explanation: tools talking to each other"
+        - "Screenshot debugging workflow"
+      level: "optional - for curious students"
+      meta_skill_integration: "connectors"
+      
+    - id: "vapi_intro"
+      name: "Vapi Voice Agent Setup"
+      materials_needed:
+        - "vapi-student-guide.md"
+        - "Account creation (if needed)"
+        - "What to expect from daily check-ins"
+      notes: "May just need account + intro, not full config"
+      
+  tool_tours:
+    description: "Short video walkthroughs of key tools"
+    format: "2-5 min each, stored in GitHub"
+    videos_needed:
+      - title: "Claude Chat Tour"
+        duration: "3 min"
+        covers: "Interface, artifacts, file upload, projects"
+        
+      - title: "Claude Code Tour"  
+        duration: "5 min"
+        covers: "Terminal launch, CLAUDE.md, basic commands, when to use"
+        
+      - title: "GitHub Desktop Tour"
+        duration: "3 min"
+        covers: "Clone, commit, push, pull, viewing history"
+        note: "May be covered in main GitHub video"
+        
+      - title: "Gamma Quick Start"
+        duration: "2 min"
+        covers: "Basic slide generation, export options"
+        timing: "Optional - for final presentations"
+        
+  config_files:
+    description: "Template config files students can copy"
+    files:
+      - name: "CLAUDE.md template"
+        purpose: "Project context for Claude Code"
+        location: "templates/CLAUDE-template.md"
+        
+      - name: "Folder structure template"
+        purpose: "Standard project organization"
+        location: "templates/project-structure/"
+        
+    note: "Keep simple for v1 - avoid overwhelming with config"
+
+# ============================================================
+# SOCIAL / OPTIONAL EVENTS
+# ============================================================
+social:
+  - id: "cville_gathering"
+    name: "Charlottesville Social Gathering"
+    type: "optional"
+    timing: "TBD - float at orientation"
+    location: "Matt's home or local venue"
+    purpose: "Cohort bonding, informal connection"
+    logistics:
+      - "Gauge interest at orientation Zoom"
+      - "If interest, schedule for Day 2 evening or weekend"
+      - "Offer to drive to INOVA if students there want similar"
+    catering: "Coordinate with Sarah Derr if needed"
+    
+  - id: "darden_event"
+    name: "Darden Data Center Event"
+    type: "optional"
+    timing: "Day 2 if available"
+    status: "TBD - confirm based on student interest"
+    logistics:
+      - "Transportation for INOVA students if attending"
+
+# ============================================================
+# META-SKILLS CURRICULUM
+# (Topics that cut across multiple days)
+# ============================================================
+meta_skills:
+  delivery_philosophy: >
+    These might be too literal/boring as formal mini-lectures.
+    Better options:
+    - Short video nuggets in GitHub for pre-exercise viewing
+    - Brief mention + reference during relevant moments
+    - Built into exercises so students discover by doing
+    - Part of pre-elective computer setup materials
+    
+  integration_approaches:
+    video_nugget:
+      description: "2-3 min video covering concept, stored in GitHub"
+      use: "Pre-morning exercise reference"
+      
+    embedded_in_exercise:
+      description: "Learn by doing, then name the concept"
+      use: "Hands-on discovery followed by debrief"
+      
+    just_in_time:
+      description: "Mention when relevant, point to resource"
+      use: "Opportunistic teaching moments"
+      
+  skills:
+    - id: "transcripts_as_data"
+      name: "Meeting Transcripts as Input Data"
+      importance: "Critical modern workflow"
+      delivery: "embedded_in_exercise"
+      when: "Day 1 - experience it with speedrun/demo debrief"
+      content:
+        - "Zoom → transcript → AI analysis pipeline"
+        - "Consistent storage location (transcripts/ folder in GitHub)"
+        - "Privacy considerations for recorded conversations"
+      infrastructure:
+        auto_transcription: "Zoom cloud recording + transcription"
+        storage: "GitHub: transcripts/ folder"
+        
+    - id: "shared_memory"
+      name: "Shared Memory and Context"
+      importance: "Team coordination with AI"
+      delivery: "video_nugget + hands_on"
+      when: "Day 2 pre-exercise video, then create team CLAUDE.md together"
+      content:
+        - "Project instructions as shared context"
+        - "CLAUDE.md files for consistent AI behavior"
+        - "Skills folders for formatted outputs"
+        - "Memory features in Claude Pro"
+      hands_on: "Create team's CLAUDE.md together"
+      
+    - id: "connectors"
+      name: "Connectors Demystified"
+      importance: "Reduce fear of technical integrations"
+      delivery: "video_nugget"
+      when: "Day 3 or 4 pre-exercise, optional deeper dive"
+      content:
+        - "What are APIs, MCP servers, connectors?"
+        - "Mental model: Just ways for tools to talk to each other"
+        - "Screenshots + Claude = debugging complex workflows"
+        - "Patience + iteration = making it work"
+      note: "Could be part of pre-elective setup materials"
+      
+    - id: "phased_workplans"
+      name: "Phased Workplans Before Diving In"
+      importance: "Core workflow discipline"
+      delivery: "embedded_in_exercise"
+      when: "Day 1 and reinforced daily"
+      content:
+        - "AI follows you down rabbit holes but can't find way back"
+        - "Plan → execute → review cycle"
+        - "Root folder structure as navigation aid"
+        - "Version control = ability to backtrack safely"
+      connection: "Core philosophy behind GitHub adoption"
+      
+    - id: "tool_diversity"
+      name: "Tool Diversity Awareness"
+      importance: "Avoid Claude-only tunnel vision"
+      delivery: "just_in_time + demos"
+      when: "Throughout, as relevant"
+      demos:
+        - day: 2
+          tool: "NotebookLM"
+          use_case: "Research grounded on specific sources"
+        - day: 4
+          tool: "Gemini (optional)"
+          use_case: "Alternative perspective, Google ecosystem"
+      message: "Claude isn't the only option - choose tools for the job"
+
+# ============================================================
+# PROJECT STRUCTURE
+# ============================================================
+projects:
+  team_formation:
+    approach: "Campus-based with flexibility"
+    note: "Many students may be fully virtual regardless of campus assignment"
+    confirmation: "Finalize after orientation Zoom"
+    
+  focus_direction:
+    primary: "Medical education tools"
+    secondary: "4th year / intern workflow applications"
+    rationale: >
+      Students have immediate access to users (classmates, residents).
+      Can test without patient involvement complications.
+      Higher likelihood of actual use beyond course.
+      
+  rules:
+    no_apps_default:
+      description: "No automatically suggesting an app as solution"
+      requirement: "Must justify that mobile is the right delivery vehicle"
+      exception: "If justified, Replit enables TestFlight deployment"
+      
+  deliverables:
+    - name: "Design Brief"
+      due: "Day 5"
+      template: "templates/design_brief_template.md"
+      
+    - name: "Working Prototype"
+      due: "Day 10"
+      requirements:
+        - "Functional enough to test core insight"
+        - "Documentation of iteration history"
+        
+    - name: "Final Presentation"
+      due: "Day 10"
+      duration: "10-15 minutes per team"
+      format: "Demo + learning journey + next steps"
+
+# ============================================================
+# DAY-BY-DAY SCHEDULE
+# ============================================================
+days:
+  # ==================== WEEK 1 ====================
+  
+  - day: 1
+    date: "2026-02-16"
+    weekday: "Monday"
+    theme: "Foundations + First Build"
+    
+    learning_targets:
+      knowledge:
+        - "Git 4-zone mental model"
+        - "14-phase design workflow overview"
+        - "AI as democratization of technology"
+      skills:
+        - "GitHub commit workflow"
+        - "Reflection journaling"
+        - "Rapid iteration mindset"
+      mindset:
+        - "Process over polish"
+        - "Prototypes test insights, not solutions"
+        - "Comfort with ambiguity"
+        
+    sessions:
+      - block: "solo_exercise"
+        content: "Complete GitHub first commit (if not done in pre-work)"
+        deliverable: "Reflection journal entry: pre-sprint hopes/fears"
+        
+      - block: "morning_session"
+        components:
+          - segment: "checkin"
+            content: "Introductions, pre-work reflections, GitHub troubleshooting"
+          - segment: "didactic"
+            content: "Course philosophy: AI as democratization, 6-month window thesis"
+            speaker: "Matt"
+          - segment: "discussion"
+            content: "What excites/concerns you about AI in healthcare?"
+          - segment: "hands_on"
+            content: "GitHub Desktop tour + first team commit"
+          - segment: "afternoon_brief"
+            content: "Intro to afternoon: staying together for demo + exercises"
+            
+      - block: "work_session"
+        # NOTE: Day 1 is different - stay together instead of independent work
+        alternative_structure: true
+        content: "Voice Agent Journey Demo + Micro Exercises"
+        description: >
+          Day 1 afternoon: Stay together on Zoom instead of independent work.
+          Matt demos his voice agent development journey (showing the 14-phase 
+          workflow in action on a real project). Then micro-exercises in 
+          breakout rooms to practice specific skills.
+        format:
+          - time: "1:00-2:30"
+            activity: "Matt's Voice Agent Journey Demo"
+            description: >
+              Narrated walkthrough of building the voice agent using the 
+              14-phase workflow. Shows the messy reality of iteration.
+              Students see a real project from start to finish.
+          - time: "2:30-2:45"
+            activity: "Break"
+          - time: "2:45-3:30"
+            activity: "Micro-Exercises in Breakout Rooms"
+            description: >
+              Small focused exercises practicing specific skills:
+              - Exercise A: Write a problem statement for a given scenario
+              - Exercise B: Sketch a user journey in 10 minutes
+              - Exercise C: Generate 5 solution ideas in 5 minutes
+              Rotate through 2-3 exercises, debrief each.
+        deliverable: "Exercise outputs committed to GitHub by 3:30"
+        
+      - block: "closeout"
+        content: "Debrief Day 1, introduce Week 1 project direction"
+        includes:
+          - "Reaction to voice agent demo"
+          - "What did micro-exercises feel like?"
+          - "Pitch med-education project direction"
+          - "Form initial teams"
+        
+    speedrun_option:
+      status: "Alternative considered, may revisit"
+      description: >
+        Original idea: Complete all 14 phases in 90 minutes on a sample challenge.
+        Concern: Might not fit, could be overwhelming on Day 1.
+        Current approach: Demo + micro-exercises instead.
+        Could revisit speedrun for Day 2 or later if useful.
+        
+    meta_skill_intro:
+      - "transcripts_as_data (experience it via demo + Zoom transcript)"
+      - "phased_workplans (see it modeled in voice agent journey)"
+      
+  - day: 2
+    date: "2026-02-17"
+    weekday: "Tuesday"
+    theme: "Problem Discovery + User Research Setup"
+    
+    learning_targets:
+      knowledge:
+        - "User research methods"
+        - "NotebookLM for grounded research"
+        - "Interview protocol design"
+        - "Human-centered design principles (via guest)"
+      skills:
+        - "Stakeholder identification"
+        - "Interview question crafting"
+        - "Research synthesis with AI"
+      mindset:
+        - "Curiosity over assumptions"
+        - "Users know things you don't"
+        - "More important to frame problem than to code"
+        
+    sessions:
+      - block: "solo_exercise"
+        content: "Read assigned user research primer"
+        deliverable: "3 draft interview questions for target users"
+        
+      - block: "morning_session"
+        components:
+          - segment: "checkin"
+            content: "Share interview questions, peer feedback"
+          - segment: "didactic"
+            content: "Human-Centered Design in Healthcare AI"
+            speaker: "Byron Crowe (Doctronic AI)"
+            speaker_id: "speaker_byron_crowe"
+            teaching_point: "More important to know how to frame the problem than to code"
+            duration: "45 min including Q&A"
+          - segment: "discussion"
+            content: "Who are your users? How will you reach them?"
+          - segment: "hands_on"
+            content: "NotebookLM setup with sample source documents"
+          - segment: "afternoon_brief"
+            content: "Schedule and conduct 2-3 stakeholder interviews"
+            
+      - block: "work_session"
+        content: "Interview scheduling + initial outreach"
+        description: "Identify stakeholders, schedule interviews, prep protocols"
+        
+      - block: "closeout"
+        content: "Share interview plans, troubleshoot access issues"
+        
+    optional_event: "cville_gathering"
+    meta_skill_intro:
+      - "shared_memory (video nugget before exercise)"
+      - "tool_diversity (NotebookLM demo)"
+      
+  - day: 3
+    date: "2026-02-18"
+    weekday: "Wednesday"
+    theme: "User Research + Problem Synthesis"
+    
+    learning_targets:
+      knowledge:
+        - "Interview analysis techniques"
+        - "Pattern recognition across sources"
+        - "API/connector mental model"
+      skills:
+        - "Conducting effective interviews"
+        - "Transcript analysis with AI"
+        - "Journey mapping"
+      mindset:
+        - "Listen more than you assume"
+        - "Technical integrations are just tools talking"
+        
+    sessions:
+      - block: "solo_exercise"
+        content: "Review transcript from yesterday's interview (if conducted)"
+        deliverable: "3 key insights from user research so far"
+        
+      - block: "morning_session"
+        components:
+          - segment: "checkin"
+            content: "Share interview insights, compare findings"
+          - segment: "didactic"
+            content: "Transcript analysis workflow + journey mapping"
+            speaker: "Matt"
+          - segment: "discussion"
+            content: "What surprised you? What assumptions were wrong?"
+          - segment: "hands_on"
+            content: "Journey mapping exercise with team"
+          - segment: "afternoon_brief"
+            content: "Complete journey maps, draft problem statements"
+            
+      - block: "work_session"
+        content: "Research synthesis + journey mapping"
+        description: "Analyze interview data, create journey maps, identify pain points"
+        
+      - block: "closeout"
+        content: "Cross-team checkpoint: Share problem directions"
+        cross_team_feedback: "week1_checkpoint"
+        
+    meta_skill_note: "Connectors concept available as video nugget for interested students"
+      
+  - day: 4
+    date: "2026-02-19"
+    weekday: "Thursday"
+    theme: "Problem Framing + Solution Ideation"
+    
+    learning_targets:
+      knowledge:
+        - "How Might We statement construction"
+        - "Jigs concept for AI applications"
+        - "Ideation techniques"
+      skills:
+        - "Problem reframing"
+        - "Rapid ideation"
+        - "Concept prioritization"
+      mindset:
+        - "Diverge before converging"
+        - "Quantity enables quality"
+        
+    sessions:
+      - block: "solo_exercise"
+        content: "Draft 5 'How Might We' statements based on research"
+        deliverable: "HMW statements in reflection journal"
+        
+      - block: "morning_session"
+        components:
+          - segment: "checkin"
+            content: "Share HMW statements, peer critique"
+          - segment: "didactic"
+            content: "Ideation techniques + prioritization frameworks"
+            speaker: "Matt"
+            optional_guest_slot: true  # Potential slot for 3rd speaker if needed
+          - segment: "discussion"
+            content: "Which HMWs have highest potential?"
+          - segment: "hands_on"
+            content: "Rapid ideation: 10 concepts in 10 minutes"
+          - segment: "afternoon_brief"
+            content: "Prioritize concepts, begin design brief draft"
+            
+      - block: "work_session"
+        content: "Ideation + design brief drafting"
+        description: "Generate concepts, prioritize, begin design brief"
+        
+      - block: "closeout"
+        content: "Share top concepts, prep for tomorrow's presentations"
+        
+    overnight:
+      type: "polish"
+      content: "Finalize design brief for tomorrow's presentation"
+      
+  - day: 5
+    date: "2026-02-20"
+    weekday: "Friday"
+    theme: "Design Brief Presentations + Week 1 Close"
+    
+    learning_targets:
+      knowledge:
+        - "Design brief components"
+        - "Giving/receiving constructive feedback"
+        - "Technical feasibility assessment"
+      skills:
+        - "Presenting design thinking work"
+        - "Incorporating feedback rapidly"
+        - "Prioritization for prototyping"
+      mindset:
+        - "Feedback is a gift"
+        - "Brief is a hypothesis, not a contract"
+        
+    sessions:
+      - block: "solo_exercise"
+        content: "Final design brief review and polish"
+        deliverable: "Design brief committed to GitHub"
+        
+      - block: "morning_session"
+        content: "Design Brief Presentations"
+        duration_override: "10:00-12:00 (full block)"
+        format: "Each team presents (10 min) + feedback (5 min)"
+        cross_team_feedback: "week1_briefs"
+        
+      - block: "work_session"
+        content: "Incorporate feedback + prototype planning"
+        description: "Revise brief based on feedback, plan Week 2 approach"
+        
+      - block: "closeout"
+        content: "Week 1 retrospective, Week 2 preview"
+        reflection: "What did we learn? What will we build?"
+        
+  # ==================== WEEK 2 ====================
+  
+  - day: 6
+    date: "2026-02-23"
+    weekday: "Monday"
+    theme: "Prototype Sprint Begins"
+    
+    learning_targets:
+      knowledge:
+        - "Prototyping fidelity levels"
+        - "Claude Code / artifact capabilities"
+        - "Jigs concept - hardening AI applications"
+      skills:
+        - "Rapid prototyping with AI"
+        - "Scope management"
+        - "Technical architecture decisions"
+      mindset:
+        - "Build to learn, not to ship"
+        - "Minimum viable insight, not product"
+        - "Demo → system thinking"
+        
+    sessions:
+      - block: "solo_exercise"
+        content: "Identify the ONE core insight your prototype must test"
+        deliverable: "Core insight statement (1 sentence)"
+        
+      - block: "morning_session"
+        components:
+          - segment: "checkin"
+            content: "Share core insights, validate focus"
+          - segment: "didactic"
+            content: "Jigs: Hardening AI Applications from Demo to Reproducible System"
+            speaker: "Justin Massa"
+            speaker_id: "speaker_justin_massa"
+            teaching_point: "Moving beyond prototypes to systems that work reliably"
+            duration: "45 min including Q&A"
+          - segment: "discussion"
+            content: "What's the simplest thing that tests your insight?"
+          - segment: "hands_on"
+            content: "Technical architecture sketching"
+          - segment: "afternoon_brief"
+            content: "Begin building! Focus on core functionality"
+            
+      - block: "work_session"
+        content: "Prototype Sprint Day 1"
+        description: "Build core prototype functionality"
+        
+      - block: "closeout"
+        content: "Demo progress (even if broken), surface blockers"
+        
+  - day: 7
+    date: "2026-02-24"
+    weekday: "Tuesday"
+    theme: "Build + First User Feedback"
+    
+    learning_targets:
+      knowledge:
+        - "User testing protocols"
+        - "Feedback capture methods"
+        - "Iteration prioritization"
+      skills:
+        - "Running user tests"
+        - "Observing vs. interpreting"
+        - "Rapid iteration"
+      mindset:
+        - "Users will surprise you"
+        - "Broken is okay if you learn"
+        
+    sessions:
+      - block: "solo_exercise"
+        content: "Write 3 specific questions your prototype should answer"
+        deliverable: "Testing questions in journal"
+        
+      - block: "morning_session"
+        components:
+          - segment: "checkin"
+            content: "Share testing questions, refine"
+          - segment: "didactic"
+            content: "User testing best practices"
+            speaker: "Matt"
+          - segment: "discussion"
+            content: "What might go wrong? How will you capture feedback?"
+          - segment: "hands_on"
+            content: "Practice testing with partner (dry run)"
+          - segment: "afternoon_brief"
+            content: "Continue building + conduct first user test"
+            
+      - block: "work_session"
+        content: "Build + first user test"
+        description: "Continue prototyping, conduct at least 1 user test"
+        
+      - block: "closeout"
+        content: "Share first user feedback, identify pivots needed"
+        
+  - day: 8
+    date: "2026-02-25"
+    weekday: "Wednesday"
+    theme: "Iterate Based on Feedback"
+    
+    learning_targets:
+      knowledge:
+        - "Feedback triage"
+        - "Pivot vs. persist decisions"
+        - "Clinical validation approaches"
+      skills:
+        - "Prioritizing feedback"
+        - "Rapid iteration"
+        - "Killing features"
+      mindset:
+        - "Some feedback to ignore"
+        - "Pivots are progress"
+        
+    sessions:
+      - block: "solo_exercise"
+        content: "Categorize yesterday's feedback: act on / ignore / investigate"
+        deliverable: "Feedback triage in journal"
+        
+      - block: "morning_session"
+        components:
+          - segment: "checkin"
+            content: "Share feedback triage decisions"
+          - segment: "didactic"
+            content: "Iteration strategies + knowing when to pivot"
+            speaker: "Matt"
+            optional_guest_slot: true  # Potential slot for 3rd speaker if needed
+          - segment: "discussion"
+            content: "What will you change? What will you keep?"
+          - segment: "hands_on"
+            content: "Quick prioritization exercise"
+          - segment: "afternoon_brief"
+            content: "Implement changes, prep for cross-team check"
+            
+      - block: "work_session"
+        content: "Iterate + more user testing"
+        description: "Implement priority changes, conduct additional tests"
+        
+      - block: "closeout"
+        content: "Cross-team prototype check"
+        cross_team_feedback: "week2_prototype"
+        
+  - day: 9
+    date: "2026-02-26"
+    weekday: "Thursday"
+    theme: "Polish + Presentation Prep"
+    
+    learning_targets:
+      knowledge:
+        - "Presentation storytelling"
+        - "Demo best practices"
+        - "Handling Q&A"
+      skills:
+        - "Narrative construction"
+        - "Demo preparation"
+        - "Time management in presentations"
+      mindset:
+        - "Tell the learning journey, not just the output"
+        - "Failures are part of the story"
+        
+    sessions:
+      - block: "solo_exercise"
+        content: "Draft your team's presentation narrative arc"
+        deliverable: "Narrative outline (beginning/middle/end)"
+        
+      - block: "morning_session"
+        components:
+          - segment: "checkin"
+            content: "Share narrative approaches"
+          - segment: "didactic"
+            content: "Presentation storytelling + demo tips"
+            speaker: "Matt"
+          - segment: "discussion"
+            content: "What's the ONE thing you want audience to remember?"
+          - segment: "hands_on"
+            content: "Practice 2-minute pitch with partner"
+          - segment: "afternoon_brief"
+            content: "Final prototype polish + presentation assembly"
+            
+      - block: "work_session"
+        content: "Final build + presentation creation"
+        description: "Complete prototype, build presentation"
+        
+      - block: "closeout"
+        content: "Full run-through of presentations (timed)"
+        
+    overnight:
+      type: "final_prep"
+      content: "Final presentation polish, rest well"
+      
+  - day: 10
+    date: "2026-02-27"
+    weekday: "Friday"
+    theme: "Final Presentations + Course Close"
+    
+    learning_targets:
+      knowledge:
+        - "Reflective practice"
+        - "Next steps planning"
+        - "Portfolio documentation"
+      skills:
+        - "Presenting design work"
+        - "Fielding questions"
+        - "Self-assessment"
+      mindset:
+        - "Completion is a beginning"
+        - "Document for future self"
+        
+    sessions:
+      - block: "solo_exercise"
+        content: "Write final journal entry: What I learned, what's next"
+        deliverable: "Final reflection committed to GitHub"
+        
+      - block: "morning_session"
+        content: "Final Presentations"
+        duration_override: "10:00-12:30"
+        format: "Each team presents (15 min) + Q&A (10 min)"
+        cross_team_feedback: "week2_finals"
+        audience: "Cohort + invited guests"
+        
+      - block: "lunch"
+        content: "Celebration lunch (if in person) or virtual hangout"
+        
+      - block: "afternoon_session"
+        time: "1:30-3:00"
+        content: "Course retrospective + next steps"
+        components:
+          - "What worked? What would you change?"
+          - "Individual next steps discussions"
+          - "Post-course survey completion"
+          - "GitHub portfolio cleanup"
+          
+      - block: "closeout"
+        time: "3:00-3:30"
+        content: "Final reflections, thank yous, course close"
+
+# ============================================================
+# POST-COURSE
+# ============================================================
+post_course:
+  - id: "survey"
+    name: "Post-Course Survey"
+    timing: "Day 10 afternoon or within 48 hours"
+    type: "evaluation"
+    instrument: "AI competencies survey (post version)"
+    
+  - id: "grades"
+    name: "Grade Submission"
+    timing: "Within 1 week of course end"
+    deliverable: "Pass/Fail + paragraph per student"
+    
+  - id: "materials_archive"
+    name: "Course Materials Archive"
+    timing: "Within 2 weeks"
+    actions:
+      - "Archive all student work in GitHub"
+      - "Document what worked/didn't for next iteration"
+      - "Compile voice agent transcripts for analysis"
+      
+  - id: "follow_up"
+    name: "Optional Follow-Up"
+    timing: "1 month post-course"
+    actions:
+      - "Check-in email to students"
+      - "Invite to MDP community"
+      - "Gather any continued project updates"
+
+# ============================================================
+# SCALABILITY NOTES
+# (For future iterations: undergrad, exec ed, larger cohorts)
+# ============================================================
+scalability:
+  notes: >
+    Course designed for potential adaptation to:
+    - Multiple offerings per year (spring/fall)
+    - Undergraduate audiences (scribes, pre-med)
+    - Executive education format
+    - Northern Virginia market
+    - Larger cohorts (16-30 students)
+    
+  key_contacts:
+    - name: "Kemi Jonah"
+      role: "Provost Office - Digital Education"
+      potential: "Executive ed, Northern Virginia expansion"
+      
+    - name: "Kyle Williams"
+      role: "Med Ed Programs Admin"
+      potential: "Undergrad elective exploration"
+      
+  design_principles_for_scale:
+    - "Virtual-first enables any location"
+    - "Voice agent scales better than 1:1 check-ins"
+    - "GitHub workflow teaches itself through use"
+    - "Modular sessions can be recombined"
