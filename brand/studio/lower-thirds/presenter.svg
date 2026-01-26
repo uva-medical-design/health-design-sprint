@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 120" width="1920" height="120">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&amp;display=swap');
+      .name-text {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 36px;
+        font-weight: 700;
+        fill: #f5f5f5;
+      }
+      .context-text {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 24px;
+        font-weight: 400;
+        fill: #cccccc;
+      }
+    </style>
+  </defs>
+  <!-- Background with 85% opacity -->
+  <rect x="0" y="0" width="600" height="120" fill="#1a1a1a" fill-opacity="0.85"/>
+  <!-- Teal accent bar -->
+  <rect x="0" y="0" width="4" height="120" fill="#00897B"/>
+  <!-- Name text -->
+  <text x="28" y="52" class="name-text">Matthew Trowbridge MD MPH</text>
+  <!-- Context text -->
+  <text x="28" y="88" class="context-text">Health Design Sprint</text>
+</svg>
