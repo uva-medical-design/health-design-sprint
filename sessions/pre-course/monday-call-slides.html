@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Health Design Sprint — Pre-Course Call | January 27, 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    /* MDP Design System v2.0 */
+    :root {
+      --font-mono: 'JetBrains Mono', monospace;
+      --font-weight-light: 300;
+      --font-weight-regular: 400;
+      --font-weight-medium: 500;
+
+      --color-near-black: #1A1A1A;
+      --color-gray-700: #4A4A4A;
+      --color-gray-500: #6B6B6B;
+      --color-gray-300: #9CA3AF;
+      --color-gray-200: #D1D5DB;
+      --color-near-white: #F5F5F5;
+      --color-white: #FFFFFF;
+
+      --color-warm: #E07A5F;
+      --color-cool: #3D5A6C;
+      --color-energy: #E8A838;
+      --color-experimental: #7B68EE;
+
+      --bg-warm: #FAF7F2;
+      --bg-cool: #F0F4F8;
+      --bg-energy: #FFFBF5;
+
+      --transition-fast: 150ms ease;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: var(--font-mono);
+      background: var(--color-near-black);
+      color: var(--color-near-black);
+      overflow: hidden;
+    }
+
+    /* Slide Container */
+    .slides {
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+    }
+
+    .slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: none;
+      padding: 64px;
+      background: var(--color-white);
+    }
+
+    .slide.active {
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Title Slide - Dark with Hero Background */
+    .slide--title {
+      background: var(--color-near-black);
+      color: var(--color-white);
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .slide--title::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: url('../../assets/generated/image-1769197933436-378.png');
+      background-size: cover;
+      background-position: center;
+      opacity: 0.4;
+    }
+
+    .slide--title .content {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Tier 1 Branding - Stacked Lockup */
+    .brand-lockup {
+      margin-bottom: 48px;
+    }
+
+    .brand-logo {
+      font-size: 48px;
+      font-weight: var(--font-weight-light);
+      letter-spacing: 0.02em;
+      margin-bottom: 12px;
+    }
+
+    .brand-logo .bracket {
+      color: var(--color-warm);
+    }
+
+    .brand-name {
+      font-size: 14px;
+      font-weight: var(--font-weight-regular);
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--color-gray-300);
+    }
+
+    /* Title Slide Content */
+    .slide--title h1 {
+      font-size: 42px;
+      font-weight: var(--font-weight-medium);
+      line-height: 1.2;
+      margin-bottom: 16px;
+    }
+
+    .slide--title .subtitle {
+      font-size: 20px;
+      font-weight: var(--font-weight-regular);
+      color: var(--color-gray-300);
+      margin-bottom: 48px;
+    }
+
+    .slide--title .date {
+      font-size: 16px;
+      color: var(--color-warm);
+    }
+
+    /* Content Slides */
+    .slide--content {
+      background: var(--bg-warm);
+    }
+
+    .slide--content h2 {
+      font-size: 32px;
+      font-weight: var(--font-weight-medium);
+      margin-bottom: 48px;
+      color: var(--color-near-black);
+    }
+
+    .slide--content h2 .bracket {
+      color: var(--color-warm);
+    }
+
+    /* Bullet List with Chevrons */
+    .bullet-list {
+      list-style: none;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 24px;
+      max-width: 800px;
+    }
+
+    .bullet-list li {
+      font-size: 24px;
+      font-weight: var(--font-weight-regular);
+      line-height: 1.5;
+      padding-left: 40px;
+      position: relative;
+      color: var(--color-gray-700);
+    }
+
+    .bullet-list li::before {
+      content: '>';
+      position: absolute;
+      left: 0;
+      color: var(--color-warm);
+      font-weight: var(--font-weight-medium);
+    }
+
+    .bullet-list li strong {
+      color: var(--color-near-black);
+      font-weight: var(--font-weight-medium);
+    }
+
+    /* Card Grid */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      flex: 1;
+      align-content: center;
+    }
+
+    .card {
+      background: var(--color-white);
+      border-radius: 8px;
+      padding: 32px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      border-top: 3px solid var(--color-warm);
+    }
+
+    .card h3 {
+      font-size: 18px;
+      font-weight: var(--font-weight-medium);
+      margin-bottom: 16px;
+      color: var(--color-near-black);
+    }
+
+    .card p {
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--color-gray-500);
+    }
+
+    .card--cool {
+      border-top-color: var(--color-cool);
+    }
+
+    .card--energy {
+      border-top-color: var(--color-energy);
+    }
+
+    .card--experimental {
+      border-top-color: var(--color-experimental);
+    }
+
+    /* Checklist Style */
+    .checklist {
+      list-style: none;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 20px;
+      max-width: 700px;
+    }
+
+    .checklist li {
+      font-size: 22px;
+      font-weight: var(--font-weight-regular);
+      line-height: 1.5;
+      padding-left: 48px;
+      position: relative;
+      color: var(--color-gray-700);
+    }
+
+    .checklist li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 4px;
+      width: 24px;
+      height: 24px;
+      border: 2px solid var(--color-gray-200);
+      border-radius: 4px;
+      background: var(--color-white);
+    }
+
+    .checklist li .tool {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: var(--font-weight-medium);
+      background: var(--color-near-white);
+      color: var(--color-gray-500);
+      padding: 4px 10px;
+      border-radius: 100px;
+      margin-left: 8px;
+      vertical-align: middle;
+    }
+
+    /* Contact Slide */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      flex: 1;
+      align-content: center;
+    }
+
+    .contact-section h3 {
+      font-size: 16px;
+      font-weight: var(--font-weight-medium);
+      color: var(--color-warm);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 20px;
+    }
+
+    .contact-section p {
+      font-size: 18px;
+      line-height: 1.8;
+      color: var(--color-gray-700);
+    }
+
+    .contact-section a {
+      color: var(--color-cool);
+      text-decoration: none;
+    }
+
+    .contact-section a:hover {
+      text-decoration: underline;
+    }
+
+    /* Slide Footer */
+    .slide-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 24px;
+      border-top: 1px solid var(--color-gray-200);
+      margin-top: auto;
+    }
+
+    .slide-footer .logo {
+      font-size: 14px;
+      font-weight: var(--font-weight-regular);
+      color: var(--color-gray-500);
+    }
+
+    .slide-footer .logo .bracket {
+      color: var(--color-warm);
+    }
+
+    .slide-footer .page {
+      font-size: 14px;
+      color: var(--color-gray-300);
+    }
+
+    /* Navigation Hint */
+    .nav-hint {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 12px;
+      color: var(--color-gray-300);
+      z-index: 100;
+      opacity: 0.6;
+      transition: opacity var(--transition-fast);
+    }
+
+    .nav-hint:hover {
+      opacity: 1;
+    }
+
+    .slide--title .nav-hint {
+      color: var(--color-gray-500);
+    }
+  </style>
+</head>
+<body>
+  <div class="slides">
+
+    <!-- Slide 1: Title -->
+    <div class="slide slide--title active" data-slide="1">
+      <div class="content">
+        <div class="brand-lockup">
+          <div class="brand-logo"><span class="bracket">&lt;</span>mdp<span class="bracket">&gt;</span></div>
+          <div class="brand-name">Health Design Sprint</div>
+        </div>
+        <h1>Pre-Course Call</h1>
+        <p class="subtitle">Logistics, Introductions & Questions</p>
+        <p class="date">Monday, January 27, 2026</p>
+      </div>
+      <div class="nav-hint">Use arrow keys to navigate</div>
+    </div>
+
+    <!-- Slide 2: Call Objectives -->
+    <div class="slide slide--content" data-slide="2">
+      <h2><span class="bracket">&lt;</span> Call Objectives <span class="bracket">&gt;</span></h2>
+      <ul class="bullet-list">
+        <li><strong>Gather logistics</strong> — Confirm schedules, locations, and technology access</li>
+        <li><strong>Introductions</strong> — Meet your instructors and fellow students</li>
+        <li><strong>Answer questions</strong> — Address any concerns before we begin</li>
+        <li><strong>Set expectations</strong> — Review course structure and what to expect</li>
+      </ul>
+      <div class="slide-footer">
+        <span class="logo"><span class="bracket">&lt;</span>mdp<span class="bracket">&gt;</span> Medical Design Program</span>
+        <span class="page">2 / 5</span>
+      </div>
+    </div>
+
+    <!-- Slide 3: Course Overview -->
+    <div class="slide slide--content" data-slide="3">
+      <h2><span class="bracket">&lt;</span> Course Overview <span class="bracket">&gt;</span></h2>
+      <div class="card-grid">
+        <div class="card">
+          <h3>Duration</h3>
+          <p>2 weeks intensive<br>February 16–27, 2026</p>
+        </div>
+        <div class="card card--cool">
+          <h3>Format</h3>
+          <p>Virtual-first with optional in-person sessions at UVA & INOVA</p>
+        </div>
+        <div class="card card--energy">
+          <h3>Focus</h3>
+          <p>Rapid prototyping with AI — from idea to testable concept</p>
+        </div>
+        <div class="card card--experimental">
+          <h3>Tools</h3>
+          <p>Claude, Lovable, Replit, GitHub Codespaces</p>
+        </div>
+        <div class="card">
+          <h3>Team Size</h3>
+          <p>8 students in 2–3 person teams</p>
+        </div>
+        <div class="card card--cool">
+          <h3>Output</h3>
+          <p>Working prototype + validated insights</p>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span class="logo"><span class="bracket">&lt;</span>mdp<span class="bracket">&gt;</span> Medical Design Program</span>
+        <span class="page">3 / 5</span>
+      </div>
+    </div>
+
+    <!-- Slide 4: What to Prepare -->
+    <div class="slide slide--content" data-slide="4">
+      <h2><span class="bracket">&lt;</span> What to Prepare <span class="bracket">&gt;</span></h2>
+      <ul class="checklist">
+        <li>Create a Claude account <span class="tool">claude.ai</span></li>
+        <li>Create a GitHub account <span class="tool">github.com</span></li>
+        <li>Laptop setup — modern browser, stable internet</li>
+        <li>Complete pre-course assignment by Feb 14</li>
+        <li>Review the course syllabus and schedule</li>
+      </ul>
+      <div class="slide-footer">
+        <span class="logo"><span class="bracket">&lt;</span>mdp<span class="bracket">&gt;</span> Medical Design Program</span>
+        <span class="page">4 / 5</span>
+      </div>
+    </div>
+
+    <!-- Slide 5: Next Steps & Contact -->
+    <div class="slide slide--content" data-slide="5">
+      <h2><span class="bracket">&lt;</span> Next Steps & Contact <span class="bracket">&gt;</span></h2>
+      <div class="contact-grid">
+        <div class="contact-section">
+          <h3>Next Steps</h3>
+          <p>
+            1. Complete account setup this week<br>
+            2. Watch for pre-course assignment email<br>
+            3. Join our Slack workspace<br>
+            4. Mark Feb 16 on your calendar
+          </p>
+        </div>
+        <div class="contact-section">
+          <h3>Contact</h3>
+          <p>
+            <strong>Dr. Matthew Trowbridge</strong><br>
+            <a href="mailto:mtrowbridge@virginia.edu">mtrowbridge@virginia.edu</a><br><br>
+            <strong>TAs:</strong> Farah Turkistani, Jonathan Swap<br>
+            <strong>Coordinator:</strong> Penny Carlisle
+          </p>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span class="logo"><span class="bracket">&lt;</span>mdp<span class="bracket">&gt;</span> Medical Design Program</span>
+        <span class="page">5 / 5</span>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="nav-hint" id="globalNavHint">Use arrow keys to navigate</div>
+
+  <script>
+    // Slide Navigation
+    const slides = document.querySelectorAll('.slide');
+    let currentSlide = 0;
+
+    function showSlide(index) {
+      slides.forEach((slide, i) => {
+        slide.classList.toggle('active', i === index);
+      });
+      currentSlide = index;
+
+      // Hide global nav hint on title slide (it has its own)
+      const globalHint = document.getElementById('globalNavHint');
+      globalHint.style.display = index === 0 ? 'none' : 'block';
+    }
+
+    function nextSlide() {
+      if (currentSlide < slides.length - 1) {
+        showSlide(currentSlide + 1);
+      }
+    }
+
+    function prevSlide() {
+      if (currentSlide > 0) {
+        showSlide(currentSlide - 1);
+      }
+    }
+
+    // Keyboard Navigation
+    document.addEventListener('keydown', (e) => {
+      switch(e.key) {
+        case 'ArrowRight':
+        case 'ArrowDown':
+        case ' ':
+        case 'PageDown':
+          e.preventDefault();
+          nextSlide();
+          break;
+        case 'ArrowLeft':
+        case 'ArrowUp':
+        case 'PageUp':
+          e.preventDefault();
+          prevSlide();
+          break;
+        case 'Home':
+          e.preventDefault();
+          showSlide(0);
+          break;
+        case 'End':
+          e.preventDefault();
+          showSlide(slides.length - 1);
+          break;
+      }
+    });
+
+    // Click Navigation
+    document.addEventListener('click', (e) => {
+      const x = e.clientX;
+      const width = window.innerWidth;
+
+      if (x > width * 0.7) {
+        nextSlide();
+      } else if (x < width * 0.3) {
+        prevSlide();
+      }
+    });
+
+    // Initialize
+    showSlide(0);
+  </script>
+</body>
+</html>
