@@ -71,6 +71,14 @@ Reference documents in `docs/research/`:
 - `repository-structure.md` - Folder organization standards
 - `tool-comparison.md` - Lovable vs Replit vs Claude Code analysis
 
+Infrastructure docs in `docs/infrastructure/`:
+- `zoom-studio-setup.md` - Complete OBS/Zoom teaching studio guide
+- `ai-model-decision-matrix.md` - When to use which AI model for assets
+- `studio-setup-complete.md` - Current setup status and quick start
+
+Decision logs in `docs/decisions/`:
+- `2026-01-26-precall-decisions.md` - Pre-course student call outcomes
+
 ## Current Sprint Focus
 
 As of January 2026, active development on:
@@ -110,7 +118,21 @@ docs/research/[topic-name].md
 **Brand:** UVA Medical Design Program (MDP)
 **Logo system:** `<mdp>` with chevron vocabulary
 **Chevrons represent:** Diverge/converge design thinking rhythms
-**Colors:** [Reference design system documentation]
+**Colors:** See `brand/tokens/design-tokens.json`
+
+### Studio Assets (`brand/studio/`)
+- `lower-thirds/` - OBS overlays for presenter identification
+- `holding-slides/` - Starting soon, break, outro screens
+- `overlays/` - Logo bugs for corner placement
+- `stream-deck-icons/` - Scene switching buttons
+
+### Asset Generation
+**For overlays requiring transparency:** Use Python/Pillow, not AI image generators. AI models (Gemini, DALL-E) cannot produce true alpha channels. See `docs/infrastructure/ai-model-decision-matrix.md`.
+
+```bash
+# Font available at brand/fonts/JetBrainsMono-Bold.ttf
+# Example: See event-hds.png generation in studio-setup-complete.md
+```
 
 ## Publishing Plans
 
@@ -124,4 +146,4 @@ Collect during course: pre/post surveys, reflection journals, commit history, co
 
 ---
 
-*Last updated: January 2026*
+*Last updated: January 26, 2026*
