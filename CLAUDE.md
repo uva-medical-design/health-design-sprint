@@ -39,7 +39,7 @@ SOURCE/schedule.yaml → Claude Code → GENERATED/
 | `sessions/` | HTML slide decks (reveal.js format) |
 | `curriculum/` | Session plans, templates, daily schedule |
 | `resources/liedtka/` | Design thinking framework (15 steps, 17 tools) |
-| `brand/` | Design system: tokens, studio assets, logos |
+| `brand/` | Studio assets and PDF templates (specs in [`mdp-brand`](https://github.com/uva-medical-design/mdp-brand)) |
 | `voice-agent/` | Vapi daily check-in system specs |
 | `docs/` | Infrastructure, research, design system docs |
 | `templates/` | CLAUDE.md template, project structure |
@@ -92,17 +92,19 @@ Slides use reveal.js HTML format. See existing examples in `sessions/day-01/` an
 
 ## Design System
 
-**Brand:** UVA Medical Design Program (MDP)
-**Logo system:** `<mdp>` with chevron vocabulary
-**Chevrons represent:** Diverge/converge design thinking rhythms
-**Typography:** JetBrains Mono primary (font at `brand/fonts/JetBrainsMono-Bold.ttf`)
-**Colors:** Monochrome palette in `brand/tokens/design-tokens.json`
-**Avoid:** UVA navy (#232D4B), UVA orange (#E57200), pure red
+**Brand specs live in the separate [`mdp-brand`](https://github.com/uva-medical-design/mdp-brand) repository** (clone to `~/Projects/mdp-brand`). That repo contains logos, fonts, color/typography specs, tokens, and brand strategy.
 
-### Studio Assets (`brand/studio/`)
+**Quick reference (from mdp-brand):**
+- **Logo system:** `<mdp>` with chevron vocabulary
+- **Typography:** JetBrains Mono primary
+- **Colors:** Monochrome palette
+- **Avoid:** UVA navy (#232D4B), UVA orange (#E57200), pure red
+
+### Local Assets (this repo)
+
+**Studio production assets** remain in `brand/studio/` (course-specific, not reusable brand specs):
 - `lower-thirds/` - OBS overlays for presenter identification
 - `holding-slides/` - Starting soon, break, outro screens
-- `overlays/` - Logo bugs for corner placement
 - `stream-deck-icons/` - Scene switching buttons
 
 ### PDF Generation

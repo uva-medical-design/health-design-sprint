@@ -58,7 +58,8 @@ By the end of this elective, students will be able to:
 | **Infrastructure** | [docs/infrastructure/](docs/infrastructure/) | Claude Team, GitHub decisions |
 | **Session Plans** | [curriculum/sessions/](curriculum/sessions/) | Day 1 kickoff, Day 4 workshop |
 | **Voice Agent** | [voice-agent/](voice-agent/) | Daily check-in system for Vapi |
-| **Brand System** | [brand/](brand/) | `<mdp>` mark, typography, colors |
+| **Brand System** | [`mdp-brand` repo](https://github.com/uva-medical-design/mdp-brand) | `<mdp>` mark, typography, colors |
+| **Studio Assets** | [brand/studio/](brand/studio/) | OBS overlays, holding slides, stream deck icons |
 
 ## Repository Structure
 
@@ -74,9 +75,9 @@ health-design-sprint/
 │   ├── student-setup/    # Installation guides
 │   └── course-philosophy.md
 ├── voice-agent/          # Vapi check-in system
-├── brand/                # Visual identity
-│   ├── assets/           # Logo files
-│   └── specs/            # Typography, color, moods
+├── brand/                # Local production assets
+│   ├── studio/           # OBS overlays, holding slides
+│   └── templates/        # PDF generation templates
 ├── students/             # Roster and student data
 ├── templates/            # Phase worksheets
 ├── examples/             # Sample outputs
