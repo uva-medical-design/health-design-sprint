@@ -59,6 +59,12 @@ The `.devcontainer/devcontainer.json` provides a ready-to-use environment:
 - GitHub CLI
 - VS Code extensions for Python, Markdown, Prettier, Copilot
 
+### PDF Generation Setup
+```bash
+make setup-pdf   # installs pango (Homebrew) + weasyprint (pip)
+make pdf          # generates PDF from brand/templates/pdf-onepager.html
+```
+
 ### Local Preview
 ```bash
 # Preview slides (reveal.js HTML files)
