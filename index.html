@@ -4,11 +4,19 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Health Design Sprint | UVA Medical Design Program</title>
+  <meta name="description" content="A two-week intensive teaching medical students to build healthcare solutions using design thinking and agentic AI. February 2026 pilot at UVA.">
+  <meta property="og:title" content="Health Design Sprint: Rapid Prototyping with AI">
+  <meta property="og:description" content="Medical students go from challenge to working prototype in 14 phases using design thinking and agentic AI tools. UVA Medical Design Program, February 2026.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://uva-medical-design.github.io/health-design-sprint/">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Health Design Sprint: Rapid Prototyping with AI">
+  <meta name="twitter:description" content="Medical students go from challenge to working prototype in 14 phases using design thinking and agentic AI tools.">
   <link rel="icon" type="image/png" href="favicon.png">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
       --mono: 'JetBrains Mono', 'SF Mono', 'Fira Code', Consolas, monospace;
@@ -17,30 +25,26 @@
       --body: #333333;
       --secondary: #666666;
       --subtle: #999999;
-      --border: #e5e5e5;
-      --bg-subtle: #fafafa;
+      --border: #e0e0e0;
+      --bg-subtle: #f5f5f5;
       --bg: #ffffff;
     }
-    
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
     body {
       font-family: var(--sans);
       color: var(--body);
       line-height: 1.6;
       background: var(--bg);
     }
-    
+
     /* Header */
     header {
       padding: 2rem 2rem 1.5rem;
       border-bottom: 1px solid var(--border);
     }
-    
+
     .logo {
       font-family: var(--mono);
       font-size: 1.5rem;
@@ -48,7 +52,7 @@
       color: var(--black);
       letter-spacing: -0.5px;
     }
-    
+
     .logo-text {
       font-family: var(--sans);
       font-size: 0.875rem;
@@ -56,13 +60,18 @@
       margin-left: 0.75rem;
       font-weight: 400;
     }
-    
+
+    /* Layout */
+    .container {
+      max-width: 780px;
+      padding: 0 2rem;
+    }
+
     /* Hero */
     .hero {
-      padding: 4rem 2rem;
-      max-width: 720px;
+      padding: 4rem 0 3rem;
     }
-    
+
     .badge {
       display: inline-block;
       font-family: var(--mono);
@@ -75,278 +84,492 @@
       margin-bottom: 1.5rem;
       letter-spacing: 0.025em;
     }
-    
+
     h1 {
       font-size: 2.25rem;
-      font-weight: 600;
+      font-weight: 700;
       color: var(--black);
-      line-height: 1.2;
-      margin-bottom: 1rem;
+      line-height: 1.15;
+      margin-bottom: 0.75rem;
     }
-    
-    .subtitle {
-      font-size: 1.125rem;
+
+    .byline {
+      font-size: 0.9375rem;
       color: var(--secondary);
       margin-bottom: 2rem;
     }
-    
-    .dates {
-      display: flex;
-      gap: 2rem;
-      padding: 1.5rem;
-      background: var(--bg-subtle);
-      border-radius: 8px;
-      margin-bottom: 2rem;
+
+    .thesis {
+      font-size: 1.0625rem;
+      line-height: 1.65;
+      color: var(--body);
     }
-    
-    .date-item label {
-      display: block;
-      font-size: 0.6875rem;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: var(--subtle);
-      margin-bottom: 0.25rem;
-    }
-    
-    .date-item span {
-      font-size: 1rem;
-      font-weight: 500;
+
+    .thesis em {
       color: var(--black);
+      font-style: italic;
     }
-    
+
     /* Sections */
     section {
-      padding: 3rem 2rem;
-      max-width: 720px;
+      padding: 2.5rem 0;
       border-top: 1px solid var(--border);
     }
-    
+
     .section-header {
       display: flex;
       align-items: center;
       gap: 0.5rem;
       margin-bottom: 1.25rem;
     }
-    
+
     .chevron {
       font-family: var(--mono);
       font-size: 1rem;
       font-weight: 400;
       color: var(--subtle);
     }
-    
+
     h2 {
       font-size: 1rem;
       font-weight: 600;
       color: var(--black);
     }
-    
-    p {
-      margin-bottom: 1rem;
+
+    p { margin-bottom: 1rem; }
+    p:last-child { margin-bottom: 0; }
+
+    /* Paradigm section */
+    .paradigm p {
+      font-size: 0.9375rem;
+      line-height: 1.65;
     }
-    
-    ul, ol {
-      margin-left: 1.25rem;
-      margin-bottom: 1rem;
+
+    /* Framework cards */
+    .framework-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
     }
-    
-    li {
-      margin-bottom: 0.5rem;
-    }
-    
-    li strong {
-      color: var(--black);
-    }
-    
-    /* Call Card */
-    .call-card {
+
+    .framework-card {
       background: var(--bg-subtle);
       border-radius: 8px;
-      padding: 1.5rem;
-      margin: 1.5rem 0;
+      padding: 1.25rem 1.5rem;
     }
-    
-    .call-card h3 {
-      font-size: 0.875rem;
+
+    .framework-card h3 {
+      font-size: 0.8125rem;
       font-weight: 600;
       color: var(--black);
-      margin-bottom: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 0.5rem;
     }
-    
-    .call-detail {
-      display: flex;
-      margin-bottom: 0.75rem;
-    }
-    
-    .call-detail:last-child {
+
+    .framework-card p {
+      font-size: 0.9375rem;
+      color: var(--body);
       margin-bottom: 0;
     }
-    
-    .call-detail label {
-      width: 80px;
+
+    /* Workflow */
+    .workflow-week {
+      margin-bottom: 1.5rem;
+    }
+
+    .workflow-week:last-child {
+      margin-bottom: 0;
+    }
+
+    .week-label {
+      font-family: var(--mono);
       font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--secondary);
+      letter-spacing: 0.03em;
+      margin-bottom: 0.75rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .phases {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+      gap: 0.5rem;
+    }
+
+    .phase {
+      display: flex;
+      align-items: baseline;
+      gap: 0.5rem;
+      padding: 0.5rem 0.625rem;
+      border-radius: 6px;
+      background: var(--bg-subtle);
+    }
+
+    .phase-num {
+      font-family: var(--mono);
+      font-size: 0.6875rem;
+      font-weight: 500;
+      color: var(--subtle);
+      flex-shrink: 0;
+      min-width: 1.25rem;
+    }
+
+    .phase-name {
+      font-size: 0.8125rem;
+      font-weight: 500;
+      color: var(--black);
+      line-height: 1.3;
+    }
+
+    .workflow-note {
+      margin-top: 1rem;
+      font-size: 0.875rem;
+      color: var(--secondary);
+      font-style: italic;
+    }
+
+    /* Tools */
+    .tools-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .tool-tag {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      font-weight: 400;
+      color: var(--black);
+      background: var(--bg-subtle);
+      padding: 0.375rem 0.75rem;
+      border-radius: 4px;
+    }
+
+    /* Pilot details */
+    .pilot-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+
+    .pilot-item {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .pilot-item label {
+      font-size: 0.6875rem;
       text-transform: uppercase;
       letter-spacing: 0.05em;
       color: var(--subtle);
+      width: 80px;
       flex-shrink: 0;
+      padding-top: 0.125rem;
     }
-    
-    .call-detail span {
+
+    .pilot-item span {
       font-size: 0.9375rem;
       color: var(--black);
     }
-    
+
+    /* Measuring */
+    .measuring-list {
+      list-style: none;
+      margin: 0;
+    }
+
+    .measuring-list li {
+      font-size: 0.9375rem;
+      padding: 0.5rem 0;
+      padding-left: 1.5rem;
+      position: relative;
+      color: var(--body);
+    }
+
+    .measuring-list li::before {
+      content: '>';
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      color: var(--subtle);
+      position: absolute;
+      left: 0;
+      top: 0.5625rem;
+    }
+
     /* Footer */
     footer {
-      padding: 2rem;
+      padding: 2.5rem 0;
       border-top: 1px solid var(--border);
-      background: var(--bg-subtle);
+      margin-top: 0;
     }
-    
-    .instructor {
-      margin-bottom: 1.5rem;
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      gap: 1.5rem;
     }
-    
+
     .instructor-name {
       font-size: 1rem;
       font-weight: 600;
       color: var(--black);
       margin-bottom: 0.25rem;
     }
-    
+
     .instructor-title {
       font-size: 0.875rem;
       color: var(--secondary);
       line-height: 1.5;
     }
-    
+
+    .footer-links {
+      text-align: right;
+    }
+
+    .footer-links a {
+      display: block;
+      font-size: 0.875rem;
+      margin-bottom: 0.25rem;
+    }
+
     .tagline {
       font-family: var(--mono);
       font-size: 0.8125rem;
       color: var(--subtle);
       letter-spacing: 0.025em;
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
     }
-    
-    /* Responsive */
-    @media (min-width: 768px) {
-      header, .hero, section, footer {
-        padding-left: 4rem;
-        padding-right: 4rem;
-      }
-      
-      h1 {
-        font-size: 2.75rem;
-      }
-      
-      .dates {
-        display: inline-flex;
-      }
-    }
-    
-    /* Link styles */
+
+    /* Links */
     a {
       color: var(--black);
       text-decoration: underline;
       text-underline-offset: 2px;
     }
-    
+
     a:hover {
       color: var(--secondary);
+    }
+
+    /* Responsive */
+    @media (min-width: 640px) {
+      .framework-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .phases {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    @media (min-width: 768px) {
+      .container {
+        padding: 0 4rem;
+      }
+
+      header {
+        padding: 2rem 4rem 1.5rem;
+      }
+
+      h1 {
+        font-size: 2.75rem;
+      }
+
+      .phases {
+        grid-template-columns: repeat(7, 1fr);
+      }
+
+      .phase {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.25rem;
+        padding: 0.625rem;
+      }
+    }
+
+    /* Print */
+    @media print {
+      body { font-size: 11pt; }
+      .container { max-width: 100%; padding: 0; }
+      header, section, footer { padding-left: 0; padding-right: 0; }
+      .phase { background: none; border: 1px solid var(--border); }
+      .framework-card { border: 1px solid var(--border); background: none; }
     }
   </style>
 </head>
 <body>
-  
+
   <header>
     <span class="logo">&lt;mdp&gt;</span>
     <span class="logo-text">Medical Design Program</span>
   </header>
-  
-  <div class="hero">
-    <span class="badge">&lt; Health Design Sprint &gt;</span>
-    <h1>Rapid Prototyping with AI</h1>
-    <p class="subtitle">A two-week intensive for 4th-year medical students. Go from challenge to working prototype using design thinking and generative AI.</p>
-    
-    <div class="dates">
-      <div class="date-item">
-        <label>Dates</label>
-        <span>February 16–27, 2026</span>
-      </div>
-      <div class="date-item">
-        <label>Format</label>
-        <span>Hybrid (UVA + INOVA)</span>
-      </div>
+
+  <div class="container">
+
+    <div class="hero">
+      <span class="badge">&lt; Health Design Sprint &gt;</span>
+      <h1>Rapid Prototyping with AI</h1>
+      <p class="byline">Matthew Trowbridge, MD, MPH &middot; UVA Medical Design Program &middot; February 2026 Pilot</p>
+      <p class="thesis">We are entering a new AI-driven tool development era where domain expertise trumps coding ability. Large language models have democratized software development. The hard part of creating digital tools is no longer the technical aspects of building, it&rsquo;s knowing <em>what</em> to build and <em>for whom</em>. Medical students, with deep clinical knowledge and direct access to patients and workflows, are uniquely positioned to lead in this next era of healthcare innovation&mdash;if we give them the right skills, confidence, and applied experience.</p>
     </div>
+
+    <section class="paradigm">
+      <div class="section-header">
+        <span class="chevron">&lt;</span>
+        <h2>The Paradigm Shift: Chat &rarr; Agent</h2>
+      </div>
+      <p>Most AI education stops at prompt engineering&mdash;teaching students to converse with chatbots. The Health Design Sprint goes further, teaching the transition from chat-based interaction to autonomous agent workflows. Students learn to decompose problems, orchestrate multi-step AI processes, and iterate toward functional prototypes. The valuable skill isn&rsquo;t coding syntax; it&rsquo;s strategic thinking about what problems matter and how to test solutions quickly.</p>
+    </section>
+
+    <section>
+      <div class="section-header">
+        <span class="chevron">&gt;</span>
+        <h2>Framework: Knowledge, Skills, Mindsets</h2>
+      </div>
+      <p>Every session develops all three dimensions:</p>
+      <div class="framework-grid">
+        <div class="framework-card">
+          <h3>Knowledge</h3>
+          <p>AI platform capabilities, design thinking methodology, ethical and regulatory considerations</p>
+        </div>
+        <div class="framework-card">
+          <h3>Skills</h3>
+          <p>User research, rapid prototyping, AI-enhanced synthesis, stakeholder testing</p>
+        </div>
+        <div class="framework-card">
+          <h3>Mindsets</h3>
+          <p>Comfort with ambiguity, prototypes as experiments (not products), process over polish</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-header">
+        <span class="chevron">&lt;&gt;</span>
+        <h2>Problem to Prototype in 14 Phases</h2>
+      </div>
+
+      <div class="workflow-week">
+        <div class="week-label">&lt; Week 1 &mdash; Discovery &amp; Definition</div>
+        <div class="phases">
+          <div class="phase"><span class="phase-num">01</span><span class="phase-name">Challenge Framing</span></div>
+          <div class="phase"><span class="phase-num">02</span><span class="phase-name">Stakeholder Mapping</span></div>
+          <div class="phase"><span class="phase-num">03</span><span class="phase-name">User Research</span></div>
+          <div class="phase"><span class="phase-num">04</span><span class="phase-name">Insight Synthesis</span></div>
+          <div class="phase"><span class="phase-num">05</span><span class="phase-name">Opportunity Definition</span></div>
+          <div class="phase"><span class="phase-num">06</span><span class="phase-name">Ideation</span></div>
+          <div class="phase"><span class="phase-num">07</span><span class="phase-name">Concept Selection</span></div>
+        </div>
+      </div>
+
+      <div class="workflow-week">
+        <div class="week-label">&gt; Week 2 &mdash; Development &amp; Validation</div>
+        <div class="phases">
+          <div class="phase"><span class="phase-num">08</span><span class="phase-name">Technical Scoping</span></div>
+          <div class="phase"><span class="phase-num">09</span><span class="phase-name">Prototype Architecture</span></div>
+          <div class="phase"><span class="phase-num">10</span><span class="phase-name">Build Sprint</span></div>
+          <div class="phase"><span class="phase-num">11</span><span class="phase-name">Internal Testing</span></div>
+          <div class="phase"><span class="phase-num">12</span><span class="phase-name">User Testing</span></div>
+          <div class="phase"><span class="phase-num">13</span><span class="phase-name">Iteration</span></div>
+          <div class="phase"><span class="phase-num">14</span><span class="phase-name">Presentation &amp; Roadmap</span></div>
+        </div>
+      </div>
+
+      <p class="workflow-note">Day 1 includes a 90-minute &ldquo;speedrun&rdquo; of all 14 phases&mdash;demonstrating that the same framework scales from minutes to months.</p>
+    </section>
+
+    <section>
+      <div class="section-header">
+        <span class="chevron">&lt;&lt;&gt;&gt;</span>
+        <h2>AI Tools Integration</h2>
+      </div>
+      <div class="tools-list">
+        <span class="tool-tag">Claude Code</span>
+        <span class="tool-tag">Replit</span>
+        <span class="tool-tag">NotebookLM</span>
+        <span class="tool-tag">Vapi</span>
+        <span class="tool-tag">Gamma</span>
+      </div>
+      <p>Students work with commercially available tools for agentic development, mobile prototyping, research synthesis, voice agents, and presentations. The curriculum emphasizes <em>why</em> to choose specific tools, not just <em>how</em> to use them&mdash;building transferable judgment as the landscape evolves.</p>
+    </section>
+
+    <section>
+      <div class="section-header">
+        <span class="chevron">&lt;</span>
+        <h2>The Pilot: February 16&ndash;27, 2026</h2>
+      </div>
+
+      <div class="pilot-grid">
+        <div class="pilot-item">
+          <label>Cohort</label>
+          <span>Eight 4th-year medical students</span>
+        </div>
+        <div class="pilot-item">
+          <label>Sites</label>
+          <span>UVA Charlottesville + INOVA campus</span>
+        </div>
+        <div class="pilot-item">
+          <label>Format</label>
+          <span>Virtual-first for equity across sites</span>
+        </div>
+        <div class="pilot-item">
+          <label>Projects</label>
+          <span>Individual, aligned to specialty interests</span>
+        </div>
+      </div>
+
+      <p>This inaugural elective builds on the established foundation of the <a href="http://uvamedical.design">UVA Medical Design Program</a>, which has trained students in human-centered design methods since its founding. The Health Design Sprint extends that work into the AI era&mdash;integrating agentic tools while preserving the program&rsquo;s core commitment to understanding users and problems before building solutions.</p>
+    </section>
+
+    <section>
+      <div class="section-header">
+        <span class="chevron">&gt;</span>
+        <h2>What We&rsquo;re Measuring</h2>
+      </div>
+      <p>This pilot is designed as a learning experience for UVA, not just for students:</p>
+      <ul class="measuring-list">
+        <li>Token usage patterns for non-technical users in intensive learning contexts</li>
+        <li>Time-to-functional-prototype for domain experts vs. traditional development</li>
+        <li>Learning curves across the chat-to-agent transition</li>
+        <li>Failure modes and pedagogical pivots</li>
+      </ul>
+    </section>
+
+    <section>
+      <div class="section-header">
+        <span class="chevron">&lt;&gt;</span>
+        <h2>Why This Matters</h2>
+      </div>
+      <p>Faculty across UVA want to teach with AI but lack models. This pilot stress-tests an approach that could scale: small cohort, intensive format, documented outcomes, transferable framework. Success here provides a template; the data we gather informs institutional decisions about AI tool access and support.</p>
+    </section>
+
+    <footer>
+      <div class="footer-inner">
+        <div>
+          <p class="instructor-name">Matt Trowbridge, MD, MPH</p>
+          <p class="instructor-title">
+            Director, UVA Medical Design Program<br>
+            Associate Professor, Emergency Medicine
+          </p>
+        </div>
+        <div class="footer-links">
+          <a href="http://uvamedical.design">uvamedical.design</a>
+          <a href="mailto:mtrowbridge@virginia.edu">mtrowbridge@virginia.edu</a>
+        </div>
+      </div>
+      <p class="tagline">&lt; diverge &middot; converge &middot; repeat &gt;</p>
+    </footer>
+
   </div>
-  
-  <section>
-    <div class="section-header">
-      <span class="chevron">&lt;</span>
-      <h2>Pre-Course Call</h2>
-    </div>
-    
-    <p>Before we sprint, let's connect. Join a quick Zoom call to meet each other, preview what we'll build, and sort out logistics.</p>
-    
-    <div class="call-card">
-      <h3>Orientation Call</h3>
-      <div class="call-detail">
-        <label>When</label>
-        <span>Monday, January 26 · 5:00pm EST</span>
-      </div>
-      <div class="call-detail">
-        <label>Where</label>
-        <span>Zoom (link in calendar invite)</span>
-      </div>
-      <div class="call-detail">
-        <label>Duration</label>
-        <span>~30 minutes</span>
-      </div>
-    </div>
-  </section>
-  
-  <section>
-    <div class="section-header">
-      <span class="chevron">&gt;</span>
-      <h2>Before We Meet</h2>
-    </div>
-    
-    <p>Please reply to the calendar invite (or email me directly) with:</p>
-    
-    <ol>
-      <li><strong>Campus location</strong> — Will you be at UVA Charlottesville or INOVA during the course?</li>
-      <li><strong>Primary device</strong> — Mac, Windows, iPad, or Chromebook?</li>
-      <li><strong>A challenge</strong> — What's a healthcare problem you're curious about tackling?</li>
-    </ol>
-  </section>
-  
-  <section>
-    <div class="section-header">
-      <span class="chevron">&lt;&gt;</span>
-      <h2>What You'll Learn</h2>
-    </div>
-    
-    <p>Over two weeks, you'll move through the full design sprint cycle—twice. By the end, you'll have:</p>
-    
-    <ul>
-      <li>Conducted stakeholder interviews using AI-enhanced analysis</li>
-      <li>Built functional prototypes with no-code and AI platforms</li>
-      <li>Tested your concepts with real users</li>
-      <li>Presented to an expert panel</li>
-    </ul>
-    
-    <p>The goal isn't polished products—it's validated insights and the confidence to keep building.</p>
-  </section>
-  
-  <footer>
-    <div class="instructor">
-      <p class="instructor-name">Matt Trowbridge, MD, MPH</p>
-      <p class="instructor-title">
-        Director, UVA Medical Design Program<br>
-        Associate Professor, Emergency Medicine
-      </p>
-    </div>
-    <p class="tagline">&lt; diverge · converge · repeat &gt;</p>
-  </footer>
-  
+
 </body>
 </html>
