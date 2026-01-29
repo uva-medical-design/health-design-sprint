@@ -99,6 +99,16 @@ Slides use reveal.js HTML format. See existing examples in `sessions/day-01/` an
 - `overlays/` - Logo bugs for corner placement
 - `stream-deck-icons/` - Scene switching buttons
 
+### PDF Generation
+**One-pager template:** `brand/templates/pdf-onepager.html` — the default format for single-page PDF summaries. Uses Inter body text (justified, auto-hyphenated), JetBrains Mono for labels/logo, monochrome palette, letter size. Generate with weasyprint:
+```bash
+DYLD_FALLBACK_LIBRARY_PATH="/opt/homebrew/lib" python3 -c "
+from weasyprint import HTML
+HTML('brand/templates/pdf-onepager.html').write_pdf('output.pdf')
+"
+```
+Verify single-page fit with `len(HTML(...).render().pages) == 1`.
+
 ### Asset Generation
 **For overlays requiring transparency:** Use Python/Pillow, not AI image generators. AI models (Gemini, DALL-E) cannot produce true alpha channels. See `docs/infrastructure/ai-model-decision-matrix.md`.
 

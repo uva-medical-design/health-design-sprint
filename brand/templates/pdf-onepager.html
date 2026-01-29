@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<!--
+  MDP One-Pager PDF Template
+  Medical Design Program <mdp>
+
+  Usage:
+    Generate PDF via weasyprint:
+    DYLD_FALLBACK_LIBRARY_PATH="/opt/homebrew/lib" python3 -c "
+    from weasyprint import HTML
+    HTML('brand/templates/pdf-onepager.html').write_pdf('output.pdf')
+    "
+
+  Design specs:
+    - Letter size (8.5 x 11), single page
+    - Inter body text, JetBrains Mono for code/labels/logo
+    - Monochrome palette per MDP design system
+    - Justified text with auto-hyphenation
+    - Section headers use chevron vocabulary: < > <> <<>>
+
+  Replace placeholder content below. Adjust section count and
+  two-column layout to fit content on one page. Use weasyprint's
+  page count check to verify:
+    doc = HTML('file.html').render()
+    assert len(doc.pages) == 1
+-->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
+
+    /* === PAGE === */
+    @page {
+      size: letter;
+      margin: 0.5in 0.6in 0.45in 0.6in;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    /* === BODY === */
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      font-size: 8pt;
+      color: #333333;
+      line-height: 1.45;
+      text-align: justify;
+      -webkit-hyphens: auto;
+      hyphens: auto;
+    }
+
+    /* === HEADER === */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding-bottom: 7pt;
+      border-bottom: 1px solid #e0e0e0;
+      margin-bottom: 10pt;
+    }
+
+    .logo {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12pt;
+      font-weight: 300;
+      color: #1a1a1a;
+    }
+
+    .logo-label {
+      font-family: 'Inter', sans-serif;
+      font-size: 7pt;
+      color: #666666;
+      margin-left: 5pt;
+    }
+
+    .header-url {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 6pt;
+      color: #999999;
+    }
+
+    /* === TITLE === */
+    h1 {
+      font-size: 16pt;
+      font-weight: 700;
+      color: #1a1a1a;
+      line-height: 1.15;
+      margin-bottom: 2pt;
+    }
+
+    .byline {
+      font-size: 8pt;
+      color: #666666;
+      margin-bottom: 10pt;
+    }
+
+    /* === LEAD / THESIS === */
+    .thesis {
+      font-size: 8.25pt;
+      line-height: 1.45;
+      color: #333333;
+      margin-bottom: 10pt;
+    }
+
+    .thesis em { color: #1a1a1a; font-style: italic; }
+
+    /* === SECTIONS === */
+    .section { margin-bottom: 10pt; }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 4pt;
+      margin-bottom: 4pt;
+    }
+
+    .chevron {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 7.5pt;
+      color: #999999;
+    }
+
+    h2 {
+      font-size: 8.5pt;
+      font-weight: 600;
+      color: #1a1a1a;
+    }
+
+    p { margin-bottom: 4pt; }
+    p:last-child { margin-bottom: 0; }
+
+    /* === TABLE === */
+    .framework {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 2pt 0 0;
+    }
+
+    .framework th {
+      text-align: left;
+      font-size: 6pt;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: #666666;
+      padding: 2.5pt 5pt;
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    .framework td {
+      font-size: 8pt;
+      padding: 3pt 5pt;
+      vertical-align: top;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .framework td:first-child {
+      font-weight: 600;
+      color: #1a1a1a;
+      width: 58pt;
+    }
+
+    /* === PHASE GRID (7-column rows) === */
+    .week-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 6.5pt;
+      font-weight: 500;
+      color: #666666;
+      margin-bottom: 4pt;
+      padding-bottom: 2pt;
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    .phases-row {
+      display: flex;
+      gap: 3.5pt;
+      margin-bottom: 5pt;
+    }
+
+    .phase {
+      flex: 1;
+      background: #f5f5f5;
+      border-radius: 2pt;
+      padding: 3.5pt 4pt;
+    }
+
+    .phase-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 6pt;
+      color: #999999;
+      display: block;
+      margin-bottom: 0.5pt;
+    }
+
+    .phase-name {
+      font-size: 6.5pt;
+      font-weight: 500;
+      color: #1a1a1a;
+      line-height: 1.2;
+    }
+
+    /* === TAGS === */
+    .tags-row {
+      display: flex;
+      gap: 3pt;
+      margin-bottom: 3pt;
+    }
+
+    .tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 6.5pt;
+      color: #1a1a1a;
+      background: #f5f5f5;
+      padding: 2.5pt 6pt;
+      border-radius: 2pt;
+    }
+
+    /* === TWO-COLUMN LAYOUT === */
+    .two-col {
+      display: flex;
+      gap: 16pt;
+    }
+
+    .col { flex: 1; }
+
+    /* === BULLET LIST (chevron markers) === */
+    .chevron-list {
+      list-style: none;
+      margin: 2pt 0;
+    }
+
+    .chevron-list li {
+      font-size: 7.5pt;
+      padding: 2pt 0 2pt 10pt;
+      position: relative;
+      color: #333333;
+    }
+
+    .chevron-list li::before {
+      content: '>';
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 5.5pt;
+      color: #999999;
+      position: absolute;
+      left: 0;
+      top: 2pt;
+    }
+
+    /* === KEY-VALUE PAIRS === */
+    .kv-item {
+      display: flex;
+      gap: 5pt;
+      margin-bottom: 2pt;
+    }
+
+    .kv-label {
+      font-size: 6pt;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #999999;
+      width: 38pt;
+      flex-shrink: 0;
+      padding-top: 0.5pt;
+    }
+
+    .kv-value {
+      font-size: 7.5pt;
+      color: #1a1a1a;
+    }
+
+    /* === SMALL TEXT === */
+    .small { font-size: 7.5pt; }
+    .italic { font-style: italic; }
+    .muted { color: #666666; }
+
+    /* === FOOTER === */
+    .footer {
+      margin-top: 8pt;
+      padding-top: 6pt;
+      border-top: 1px solid #e0e0e0;
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+    }
+
+    .footer-left {
+      font-size: 6.5pt;
+      color: #666666;
+    }
+
+    .footer-right {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 6pt;
+      color: #999999;
+    }
+
+    a { color: #1a1a1a; text-decoration: none; }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER: logo left, optional URL right -->
+  <div class="header">
+    <div>
+      <span class="logo">&lt;mdp&gt;</span>
+      <span class="logo-label">Medical Design Program</span>
+    </div>
+    <span class="header-url">optional-url-here</span>
+  </div>
+
+  <!-- TITLE + BYLINE -->
+  <h1>Document Title Here</h1>
+  <p class="byline">Author Name · Program · Date</p>
+
+  <!-- LEAD PARAGRAPH -->
+  <p class="thesis">Lead paragraph with the core thesis or executive summary. Use <em>emphasis</em> for key terms. This section should hook the reader and frame the document.</p>
+
+  <!-- SECTION WITH CHEVRON HEADER -->
+  <div class="section">
+    <div class="section-header">
+      <span class="chevron">&lt;</span>
+      <h2>Section Title</h2>
+    </div>
+    <p>Section body text here.</p>
+  </div>
+
+  <!-- SECTION WITH TABLE -->
+  <div class="section">
+    <div class="section-header">
+      <span class="chevron">&gt;</span>
+      <h2>Table Section</h2>
+    </div>
+    <table class="framework">
+      <tr><th>Column A</th><th>Column B</th></tr>
+      <tr><td>Row 1</td><td>Description</td></tr>
+      <tr><td>Row 2</td><td>Description</td></tr>
+    </table>
+  </div>
+
+  <!-- SECTION WITH PHASE GRID -->
+  <div class="section">
+    <div class="section-header">
+      <span class="chevron">&lt;&gt;</span>
+      <h2>Phase Grid Section</h2>
+    </div>
+    <div class="week-label">&lt; Row Label</div>
+    <div class="phases-row">
+      <div class="phase"><span class="phase-num">01</span><span class="phase-name">Phase Name</span></div>
+      <div class="phase"><span class="phase-num">02</span><span class="phase-name">Phase Name</span></div>
+      <div class="phase"><span class="phase-num">03</span><span class="phase-name">Phase Name</span></div>
+    </div>
+  </div>
+
+  <!-- SECTION WITH TAGS -->
+  <div class="section">
+    <div class="section-header">
+      <span class="chevron">&lt;&lt;&gt;&gt;</span>
+      <h2>Tags Section</h2>
+    </div>
+    <div class="tags-row">
+      <span class="tag">Tag One</span>
+      <span class="tag">Tag Two</span>
+      <span class="tag">Tag Three</span>
+    </div>
+    <p>Supporting text.</p>
+  </div>
+
+  <!-- TWO-COLUMN BOTTOM SECTION -->
+  <div class="two-col">
+    <div class="col">
+      <div class="section">
+        <div class="section-header">
+          <span class="chevron">&lt;</span>
+          <h2>Key-Value Section</h2>
+        </div>
+        <div class="kv-item"><span class="kv-label">Label</span><span class="kv-value">Value</span></div>
+        <div class="kv-item"><span class="kv-label">Label</span><span class="kv-value">Value</span></div>
+        <p class="small" style="margin-top: 4pt;">Additional context.</p>
+      </div>
+    </div>
+    <div class="col">
+      <div class="section">
+        <div class="section-header">
+          <span class="chevron">&gt;</span>
+          <h2>Bullet List Section</h2>
+        </div>
+        <ul class="chevron-list">
+          <li>Item one</li>
+          <li>Item two</li>
+          <li>Item three</li>
+        </ul>
+      </div>
+      <div class="section" style="margin-top: 3pt;">
+        <div class="section-header">
+          <span class="chevron">&lt;&gt;</span>
+          <h2>Closing Section</h2>
+        </div>
+        <p class="small">Closing paragraph.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <span class="footer-left">Name · email · url</span>
+    <span class="footer-right">&lt; diverge · converge · repeat &gt;</span>
+  </div>
+
+</body>
+</html>
